@@ -2,7 +2,9 @@ Project Manager / Project Engineer Crash Course + Toolkit
 
 Savunma ve IT sektörlerinde çalışan PM/PE'ler için hafıza tazeleme kursu ve interaktif araç kiti. Tek bir HTML dosyası — kurulum gerektirmez, tarayıcıda çalışır.
 
-Canlı demo: https://kbrterz.github.io/crash-course-max/Project-Engineer-Crash-Course-FULL.html
+Ücretsiz önizleme (kilitli, Modül 0-1 ve Araç Kiti'nden 3 modül açık): https://kbrterz.github.io/crash-course-max/Project-Engineer-Crash-Course-PREVIEW.html
+
+Tam sürüm Etsy ve Shopier'de dijital indirme olarak satılıyor.
 
 İçerik
 19 çekirdek modül (0–18): Proje yaşam döngüsü, WBS/Critical Path, Risk & Değişiklik Yönetimi, Procurement (RFI/RFP/RFQ), Bütçe & Maliyet Kontrolü, Standartlar & Uyumluluk, Mülakat Stratejisi, AI araçları, EVM (CPI/SPI), Excel & MS Project uygulamaları, Configuration Management, Jira ve daha fazlası.
