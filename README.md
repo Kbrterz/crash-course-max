@@ -9,7 +9,7 @@ Tam sürüm Etsy ve Shopier'de dijital indirme olarak satılıyor.
 İçerik
 19 çekirdek modül (0–18): Proje yaşam döngüsü, WBS/Critical Path, Risk & Değişiklik Yönetimi, Procurement (RFI/RFP/RFQ), Bütçe & Maliyet Kontrolü, Standartlar & Uyumluluk, Mülakat Stratejisi, AI araçları, EVM (CPI/SPI), Excel & MS Project uygulamaları, Configuration Management, Jira ve daha fazlası.
 16 araç kiti modülü (19–34): PMP hızlı referans kartı, procurement şablonları, RAID log, risk register (5×5), stakeholder matrisi, iletişim planı, WBS şablonu, cost baseline/S-curve, çalışan Critical Path hesaplayıcısı, çalışan Earned Value hesaplayıcısı, 18 hazır AI prompt, Jira & Scrum cheat sheet, PMO dashboard şablonu ve tamamlama sertifikası.
-5 modüllük iş arama paketi (35–39): tüm kursu tarayan aktif tekrar/flashcard modu, CV hazırlığı, LinkedIn profil optimizasyonu, maaş pazarlığı, 45 soruluk PMP pratik soru bankası.
+6 modüllük iş arama paketi (35–40): tüm kursu tarayan aktif tekrar/flashcard modu, CV hazırlığı, LinkedIn profil optimizasyonu, maaş pazarlığı, 45 soruluk PMP pratik soru bankası, PM'ler için n8n otomasyonu.
 Özellikler
 İlerleme takibi (tarayıcıda localStorage, sunucuya veri gönderilmez)
 Her modülde not alma

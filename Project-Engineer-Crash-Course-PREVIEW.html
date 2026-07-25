@@ -378,7 +378,7 @@
 
 <script>var PURCHASE_URL = "https://www.etsy.com/your-listing-here";</script>
 <div class="preview-banner">
-  <span>🔒 <b>ÖNİZLEME SÜRÜMÜ</b> — Modül 0–1 ve Araç Kiti'nden 3 modül tamamen açık. Kalan 35 modül tam sürümde.</span>
+  <span>🔒 <b>ÖNİZLEME SÜRÜMÜ</b> — Modül 0–1 ve Araç Kiti'nden 3 modül tamamen açık. Kalan 36 modül tam sürümde.</span>
   <a class="pb-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al — 2.500 ₺</a>
 </div>
 
@@ -438,6 +438,7 @@
       <li><a href="#m37"><span class="nav-num" data-mod="m37"><span>37</span></span><span class="nav-label">LinkedIn Profil Optimizasyonu</span><span class="nav-lock">🔒</span></a></li>
       <li><a href="#m38"><span class="nav-num" data-mod="m38"><span>38</span></span><span class="nav-label">💰 Maaş Pazarlığı</span><span class="nav-lock">🔒</span></a></li>
       <li><a href="#m39"><span class="nav-num" data-mod="m39"><span>39</span></span><span class="nav-label">PMP Tarzı Soru Bankası (45)</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m40"><span class="nav-num" data-mod="m40"><span>40</span></span><span class="nav-label">n8n Otomasyonu</span><span class="nav-lock">🔒</span></a></li>
     </ul>
 
     <div class="sb-search">
@@ -494,7 +495,7 @@
       <h3>Hızlı Kontrol</h3>
       <div class="qa-set">
         <div class="qa-item"><p class="q">Bu kursun amacı nedir?</p><p class="a">Yeni bilgi öğretmek değil, mevcut bilgiyi hafızada tazeleyip 30–60 saniyede örnekle anlatabilir hale getirmek.</p></div>
-        <div class="qa-item"><p class="q">Kurs kaç modülden oluşuyor?</p><p class="a">40 modül (Modül 0–39): ilk 19 modül (0–18) çekirdek kurs, sonraki 21 modül (19–39) araç kiti şablonları, hesaplayıcıları, iş arama paketi (CV, LinkedIn, maaş pazarlığı), 45 soruluk PMP pratik bankası ve sertifikadır.</p></div>
+        <div class="qa-item"><p class="q">Kurs kaç modülden oluşuyor?</p><p class="a">41 modül: 19 çekirdek modül, araç kiti şablonları/hesaplayıcıları, iş arama paketi (CV, LinkedIn, maaş pazarlığı), 45 soruluk PMP tarzı pratik banka, n8n otomasyon modülü ve sertifikadır.</p></div>
         <div class="qa-item"><p class="q">Her modülün ortak yapısı nedir?</p><p class="a">Tanım, sektörden somut örnek, mülakat sorusu ve İngilizce örnek cevap.</p></div>
         <div class="qa-item"><p class="q">"Araç odaklı değil karar odaklı" yaklaşım hangi modülde detaylı işleniyor?</p><p class="a">Modül 7'de.</p></div>
         <div class="qa-item"><p class="q">Sorumluluk-modül eşleme tablosu ne işe yarar?</p><p class="a">Tipik PM/PE sorumluluklarının hangi modülde işlendiğini hızlıca bulmayı sağlar.</p></div>
@@ -1058,7 +1059,7 @@
     <section class="module wide" id="m34">
   <p class="m-eyebrow">Araç Kiti · Tamamlama</p>
   <h2 class="m-title">🎓 Sertifika</h2>
-  <p class="m-intro">Tüm 35 modülü tamamladığında adına özel, indirilebilir bir başarı sertifikası oluşturuluyor. Örneği aşağıda:</p>
+  <p class="m-intro">Tüm 41 modülü tamamladığında adına özel, indirilebilir bir başarı sertifikası oluşturuluyor. Örneği aşağıda:</p>
   <img src="ornek-sertifika.png" alt="Örnek başarı sertifikası" style="max-width:100%;border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow);display:block;margin:0 auto;">
   <div class="lock-card">
     <div class="lock-icon">🔒</div>
@@ -1127,13 +1128,25 @@
   </div>
 </section>
 
+    <!-- MODULE 41 -->
+    <section class="module wide" id="m40">
+  <p class="m-eyebrow">Araç Kiti · Otomasyon</p>
+  <h2 class="m-title">PM'ler için n8n Otomasyonu</h2>
+  <p class="m-intro">n8n gibi no-code otomasyon araçları, PM/PE'nin tekrar eden idari işlerini (statü raporu, risk bildirimi, form-to-task) otomatikleştirip zamanını analiz ve karara ayırmasını sağlar. Bu modül, kod yazmadan kurabileceğin 5 hazır otomasyon fikrini gösteriyor.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
   </main>
 </div>
 
 <script>
 (function(){
   var KEY = 'pe-crash-course-progress';
-  var total = 40;
+  var total = 41;
   function load(){
     try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ return {}; }
   }
@@ -1560,7 +1573,7 @@ function copyPromptEl(btn, id){
 function computeProgressPct(){
   try {
     var state = JSON.parse(localStorage.getItem('pe-crash-course-progress')) || {};
-    var done = 0, total = 40;
+    var done = 0, total = 41;
     Object.keys(state).forEach(function(k){ if(state[k]) done++; });
     return Math.round((done / total) * 100);
   } catch(e){ return 0; }
@@ -1609,7 +1622,7 @@ function certGenerate(){
   ctx.font = '19px Georgia, serif';
   ctx.fillStyle = '#4C6270';
   ctx.fillText('Project Manager / Project Engineer Crash Course', w / 2, 330);
-  ctx.fillText(currentLang === 'en' ? 'has successfully completed all 40 modules and the toolkit.' : '40 modülü ve araç kitini başarıyla tamamlamıştır.', w / 2, 360);
+  ctx.fillText(currentLang === 'en' ? 'has successfully completed all 41 modules and the toolkit.' : '41 modülü ve araç kitini başarıyla tamamlamıştır.', w / 2, 360);
   var d = new Date();
   ctx.font = '14px Consolas, monospace';
   ctx.fillStyle = '#7C8D96';
