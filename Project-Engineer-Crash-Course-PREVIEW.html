@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Manager/Project Engineer Crash Course: Savunma &amp; IT</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#24708F">
+<style>
+  :root{
+    --bg:#F1F4F5;
+    --surface:#FFFFFF;
+    --surface-2:#E5EAEC;
+    --border:#CBD5D9;
+    --ink:#16232B;
+    --ink-soft:#4C6270;
+    --ink-faint:#7C8D96;
+    --accent:#24708F;
+    --accent-ink:#0E3A4B;
+    --accent-soft:#DCEBF0;
+    --flag:#C07A1E;
+    --flag-soft:#F5E6D2;
+    --risk-high:#B3372C;
+    --risk-high-soft:#F5DEDB;
+    --risk-med:#A9791F;
+    --risk-med-soft:#F1E6CE;
+    --risk-low:#3F7A52;
+    --risk-low-soft:#DCEBE1;
+    --shadow: 0 1px 2px rgba(22,35,43,0.06), 0 8px 24px -12px rgba(22,35,43,0.18);
+    --font-display:'Bahnschrift','SF Compact Condensed','Segoe UI Semibold','Roboto Condensed','Arial Narrow',sans-serif;
+    --font-body: Charter,'Iowan Old Style',Georgia,'Noto Serif',serif;
+    --font-mono:'SF Mono','Cascadia Code',Consolas,'JetBrains Mono',monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#10161A; --surface:#161E23; --surface-2:#1D2830; --border:#2C3B44;
+      --ink:#E7EEF1; --ink-soft:#93A6AF; --ink-faint:#5E7079;
+      --accent:#5AB2D4; --accent-ink:#DFF3FA; --accent-soft:#1C3540;
+      --flag:#E0983D; --flag-soft:#2E2415;
+      --risk-high:#E3776A; --risk-high-soft:#33201E;
+      --risk-med:#D2A44C; --risk-med-soft:#2C2412;
+      --risk-low:#79BC93; --risk-low-soft:#17281D;
+      --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px -12px rgba(0,0,0,0.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#10161A; --surface:#161E23; --surface-2:#1D2830; --border:#2C3B44;
+    --ink:#E7EEF1; --ink-soft:#93A6AF; --ink-faint:#5E7079;
+    --accent:#5AB2D4; --accent-ink:#DFF3FA; --accent-soft:#1C3540;
+    --flag:#E0983D; --flag-soft:#2E2415;
+    --risk-high:#E3776A; --risk-high-soft:#33201E;
+    --risk-med:#D2A44C; --risk-med-soft:#2C2412;
+    --risk-low:#79BC93; --risk-low-soft:#17281D;
+    --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+  :root[data-theme="light"]{
+    --bg:#F1F4F5; --surface:#FFFFFF; --surface-2:#E5EAEC; --border:#CBD5D9;
+    --ink:#16232B; --ink-soft:#4C6270; --ink-faint:#7C8D96;
+    --accent:#24708F; --accent-ink:#0E3A4B; --accent-soft:#DCEBF0;
+    --flag:#C07A1E; --flag-soft:#F5E6D2;
+    --risk-high:#B3372C; --risk-high-soft:#F5DEDB;
+    --risk-med:#A9791F; --risk-med-soft:#F1E6CE;
+    --risk-low:#3F7A52; --risk-low-soft:#DCEBE1;
+    --shadow: 0 1px 2px rgba(22,35,43,0.06), 0 8px 24px -12px rgba(22,35,43,0.18);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;} }
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--font-body); font-size:16px; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--accent-soft); color:var(--accent-ink); }
+
+  a{ color:var(--accent); }
+  strong{ color:var(--ink); }
+
+  .layout{ display:flex; min-height:100vh; max-width:1400px; margin:0 auto; }
+
+  /* ---------- SIDEBAR ---------- */
+  .sidebar{
+    width:296px; flex:0 0 296px; position:sticky; top:0; align-self:flex-start;
+    height:100vh; overflow-y:auto; border-right:1px solid var(--border);
+    background:var(--surface); padding:28px 22px 40px;
+  }
+  .sb-eyebrow{
+    font-family:var(--font-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--flag); margin:0 0 6px;
+  }
+  .sb-title{
+    font-family:var(--font-display); font-weight:700; font-size:26px; line-height:1.12;
+    margin:0 0 4px; text-wrap:balance; letter-spacing:.01em;
+  }
+  .sb-sub{ font-size:13.5px; color:var(--ink-soft); margin:0 0 20px; }
+
+  .progress-wrap{ margin-bottom:26px; }
+  .progress-label{
+    display:flex; justify-content:space-between; font-family:var(--font-mono);
+    font-size:11px; color:var(--ink-soft); margin-bottom:6px; letter-spacing:.03em;
+  }
+  .progress-track{ height:6px; border-radius:3px; background:var(--surface-2); overflow:hidden; }
+  .progress-fill{ height:100%; background:var(--accent); border-radius:3px; width:0%; transition:width .4s ease; }
+
+  .nav{ list-style:none; margin:0; padding:0; border-top:1px solid var(--border); }
+  .nav li{ border-bottom:1px solid var(--border); }
+  .nav a{
+    display:flex; align-items:center; gap:10px; padding:11px 4px; text-decoration:none;
+    color:var(--ink); font-size:14.5px;
+  }
+  .nav a:hover .nav-num{ border-color:var(--accent); color:var(--accent); }
+  .nav-num{
+    flex:0 0 22px; height:22px; border-radius:50%; border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center; font-family:var(--font-mono);
+    font-size:10.5px; color:var(--ink-faint); transition:border-color .15s, color .15s;
+  }
+  .nav-num.done{ background:var(--accent); border-color:var(--accent); color:var(--surface); }
+  .nav-num.done::after{ content:"✓"; }
+  .nav-num.done span{ display:none; }
+  .nav-label{ flex:1; }
+  .nav-tag{ font-family:var(--font-mono); font-size:10px; color:var(--ink-faint); }
+  .nav li.nav-divider{
+    border-bottom:none; padding:14px 4px 4px; font-family:var(--font-mono); font-size:10px;
+    letter-spacing:.12em; color:var(--accent); font-weight:700;
+  }
+
+  .sb-search{ margin-top:14px; }
+  .sb-search input{
+    width:100%; box-sizing:border-box; padding:8px 10px; border-radius:8px;
+    border:1px solid var(--border); background:var(--surface); color:var(--ink);
+    font-size:13px; font-family:var(--font-body);
+  }
+  .sb-search input:focus{ outline:2px solid var(--accent); outline-offset:1px; }
+  .nav li.nav-hidden{ display:none; }
+
+  .lang-toggle{
+    margin-top:10px; width:100%; padding:7px 10px; border-radius:8px; cursor:pointer;
+    border:1px solid var(--border); background:var(--surface-2); color:var(--ink);
+    font-family:var(--font-mono); font-size:11px; letter-spacing:.06em; font-weight:700;
+  }
+  .lang-toggle:hover{ border-color:var(--accent); color:var(--accent); }
+
+  .sb-footer{
+    margin-top:24px; padding-top:16px; border-top:1px solid var(--border);
+    font-size:12px; color:var(--ink-faint); line-height:1.55;
+  }
+
+  /* ---------- MAIN ---------- */
+  main{ flex:1; min-width:0; padding:48px clamp(20px,4vw,72px) 120px; }
+  .module{ max-width:760px; margin:0 auto 96px; scroll-margin-top:28px; }
+  .module.wide{ max-width:860px; }
+  .m-eyebrow{
+    font-family:var(--font-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--flag); margin:0 0 10px; display:flex; align-items:center; gap:8px;
+  }
+  .m-eyebrow::before{ content:""; width:22px; height:1px; background:var(--flag); display:inline-block; }
+  h2.m-title{
+    font-family:var(--font-display); font-size:clamp(28px,3.4vw,38px); font-weight:700;
+    margin:0 0 14px; text-wrap:balance; letter-spacing:.005em;
+  }
+  .m-intro{ font-size:17.5px; color:var(--ink-soft); margin:0 0 36px; max-width:65ch; }
+  .module h3{
+    font-family:var(--font-display); font-size:20px; font-weight:700; margin:40px 0 12px;
+    letter-spacing:.01em;
+  }
+  .module h4{
+    font-family:var(--font-display); font-size:15px; font-weight:700; margin:26px 0 8px;
+    text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft);
+  }
+  .module p{ margin:0 0 14px; max-width:65ch; }
+  .module ul, .module ol{ margin:0 0 16px; padding-left:22px; max-width:65ch; }
+  .module li{ margin-bottom:6px; }
+  .module ul.tight li{ margin-bottom:3px; }
+
+  /* Flow diagrams (real sequences) */
+  .flow-scroll{ overflow-x:auto; margin:20px 0 26px; padding-bottom:6px; }
+  .flow{ display:flex; align-items:stretch; gap:0; width:max-content; }
+  .flow-step{
+    background:var(--surface); border:1px solid var(--border); border-radius:6px;
+    padding:10px 14px; font-size:13px; font-family:var(--font-mono); white-space:nowrap;
+    display:flex; align-items:center; box-shadow:var(--shadow);
+  }
+  .flow-arrow{ display:flex; align-items:center; padding:0 8px; color:var(--ink-faint); font-size:14px; }
+  .flow-step.accent{ border-color:var(--accent); color:var(--accent-ink); background:var(--accent-soft); }
+
+  /* Case / example callouts */
+  .case{
+    background:var(--accent-soft); border-left:3px solid var(--accent); border-radius:0 8px 8px 0;
+    padding:16px 20px; margin:18px 0 24px; max-width:65ch;
+  }
+  .case-tag{
+    font-family:var(--font-mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--accent-ink); opacity:.85; margin:0 0 6px; display:block;
+  }
+  .case p:last-child{ margin-bottom:0; }
+
+  /* Interview Q&A */
+  .qa{ border:1px solid var(--border); border-radius:8px; background:var(--surface); margin:16px 0 24px; overflow:hidden; box-shadow:var(--shadow); }
+  .qa-q{ padding:13px 18px; font-style:italic; color:var(--ink-soft); font-size:15px; border-bottom:1px solid var(--border); }
+  .qa-q::before{ content:"S:"; font-style:normal; color:var(--flag); font-family:var(--font-mono); font-size:11px; letter-spacing:.05em; }
+  .qa-a{ padding:14px 18px; border-left:3px solid var(--accent); font-size:14.5px; }
+  .qa-a::before{ content:"CEVAP (EN)"; display:block; font-family:var(--font-mono); font-size:10px; letter-spacing:.08em; color:var(--accent); margin-bottom:6px; }
+  .qa-a em{ font-style:normal; }
+
+  /* Tables */
+  .table-scroll{ overflow-x:auto; margin:16px 0 26px; }
+  table.data{ border-collapse:collapse; width:100%; min-width:420px; font-size:14px; }
+  table.data caption{ text-align:left; font-family:var(--font-mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:8px; }
+  table.data th, table.data td{ padding:9px 14px; border-bottom:1px solid var(--border); text-align:left; }
+  table.data th{ font-family:var(--font-display); font-weight:700; font-size:12.5px; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); background:var(--surface-2); }
+  table.data td.num, table.data th.num{ text-align:right; font-family:var(--font-mono); font-variant-numeric:tabular-nums; }
+  table.data tr:last-child td{ font-weight:700; border-bottom:2px solid var(--ink-faint); }
+  .pill{ display:inline-block; padding:2px 9px; border-radius:20px; font-family:var(--font-mono); font-size:11px; letter-spacing:.02em; }
+  .pill.high{ background:var(--risk-high-soft); color:var(--risk-high); }
+  .pill.med{ background:var(--risk-med-soft); color:var(--risk-med); }
+  .pill.low{ background:var(--risk-low-soft); color:var(--risk-low); }
+
+  /* CBS tree */
+  .cbs{ display:flex; flex-direction:column; gap:4px; margin:18px 0 26px; font-family:var(--font-mono); font-size:13.5px; }
+  .cbs-row{ display:flex; align-items:center; gap:10px; }
+  .cbs-row .dot{ width:6px; height:6px; border-radius:50%; background:var(--accent); flex:0 0 auto; }
+  .cbs-row.l0{ font-family:var(--font-display); font-weight:700; font-size:15px; }
+  .cbs-row.l1{ margin-left:20px; }
+  .cbs-row.l2{ margin-left:40px; color:var(--ink-soft); }
+
+  /* Checklist / homework */
+  .task-box{
+    border:1px dashed var(--ink-faint); border-radius:8px; padding:18px 20px; margin:26px 0;
+    background:var(--surface);
+  }
+  .task-box h4{ margin-top:0; color:var(--ink); }
+
+  .compare{
+    display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:18px 0 26px;
+  }
+  @media (max-width:640px){ .compare{ grid-template-columns:1fr; } }
+  .compare .bad, .compare .good{ border-radius:8px; padding:14px 16px; font-size:14.5px; }
+  .compare .bad{ background:var(--risk-high-soft); border:1px solid var(--risk-high); }
+  .compare .good{ background:var(--risk-low-soft); border:1px solid var(--risk-low); }
+  .compare .tag{ font-family:var(--font-mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; display:block; margin-bottom:6px; }
+  .compare .bad .tag{ color:var(--risk-high); }
+  .compare .good .tag{ color:var(--risk-low); }
+
+  .checkline{ display:flex; align-items:center; gap:10px; margin-top:16px; }
+  .checkline input{ width:17px; height:17px; accent-color:var(--accent); }
+  .checkline label{ font-size:14px; color:var(--ink-soft); }
+
+  .map-table td:first-child{ color:var(--ink-soft); }
+
+  code{ font-family:var(--font-mono); background:var(--surface-2); padding:1px 6px; border-radius:4px; font-size:0.9em; }
+  table.data code{ background:transparent; padding:0; }
+
+  /* Compact Q&A review sets */
+  .qa-set{ margin:20px 0 8px; counter-reset:qa; }
+  .qa-item{ counter-increment:qa; padding:13px 0; border-bottom:1px solid var(--border); }
+  .qa-item:last-child{ border-bottom:none; }
+  .qa-item .q{
+    font-family:var(--font-display); font-weight:700; font-size:14.5px;
+    margin:0 0 4px; display:flex; gap:9px; text-wrap:balance;
+  }
+  .qa-item .q::before{
+    content: counter(qa) "."; color:var(--accent); font-family:var(--font-mono);
+    font-weight:400; flex:0 0 auto; font-size:13px;
+  }
+  .qa-item .a{ font-size:14px; color:var(--ink-soft); margin:0 0 0 25px; max-width:60ch; }
+
+  hr.rule{ border:none; border-top:1px solid var(--border); margin:40px 0; }
+
+  @media (max-width:880px){
+    .layout{ display:block; }
+    .sidebar{ position:relative; width:auto; height:auto; top:auto; }
+    main{ padding:32px 20px 90px; }
+  }
+
+  /* ---------- TOOLKIT MODULES (m19-m34) ---------- */
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .grid4{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  @media (max-width:760px){ .grid2,.grid3,.grid4{ grid-template-columns:1fr; } }
+
+  .pill2{ display:inline-block; padding:2px 10px; border-radius:20px; font-size:11px; font-weight:700; font-family:var(--font-mono); }
+  .pill2.high{ background:var(--risk-high-soft); color:var(--risk-high); }
+  .pill2.med{ background:var(--risk-med-soft); color:var(--risk-med); }
+  .pill2.low{ background:var(--risk-low-soft); color:var(--risk-low); }
+
+  .risk-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:4px; max-width:520px; margin:14px 0; }
+  .risk-grid .cell{ aspect-ratio:1.3; border-radius:6px; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:12px; font-weight:700; color:#fff; }
+  .risk-grid .axis{ font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); display:flex; align-items:center; justify-content:center; }
+
+  .kpi-tile{ background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 16px; box-shadow:var(--shadow); }
+  .kpi-tile .kv{ font-family:var(--font-display); font-size:24px; font-weight:700; color:var(--ink); }
+  .kpi-tile .kl{ font-size:11px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.05em; margin-top:2px; }
+
+  .wbs-tree ul{ list-style:none; margin:2px 0; padding-left:22px; border-left:2px dashed var(--border); }
+  .wbs-tree > ul{ border-left:none; padding-left:0; }
+  .wbs-tree li{ margin:7px 0; font-size:13.5px; }
+  .wbs-tree code{ background:var(--surface-2); color:var(--accent-ink); padding:1px 7px; border-radius:5px; font-family:var(--font-mono); font-size:11.5px; margin-right:7px; }
+
+  .prompt-card{ border:1px solid var(--border); border-radius:8px; padding:12px 14px; margin-bottom:10px; background:var(--surface); position:relative; }
+  .prompt-card .pc-cat{ font-family:var(--font-mono); font-size:10px; color:var(--accent); text-transform:uppercase; letter-spacing:.07em; font-weight:700; }
+  .prompt-card p{ font-family:var(--font-mono); font-size:12.5px; margin:6px 60px 4px 0; color:var(--ink-soft); line-height:1.55; }
+  .prompt-card .copy-btn{ position:absolute; top:10px; right:10px; font-size:11px; padding:4px 9px; border-radius:6px; border:1px solid var(--border); background:var(--surface-2); color:var(--ink); cursor:pointer; font-family:var(--font-mono); }
+  .prompt-card .copy-btn:hover{ border-color:var(--accent); color:var(--accent); }
+
+  .calc-box{ background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:18px 20px; margin:18px 0; }
+  .calc-box .field{ margin-bottom:12px; }
+  .calc-box label{ display:block; font-size:12px; color:var(--ink-faint); margin-bottom:4px; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:.04em; }
+  .calc-box input, .calc-box select{ width:100%; box-sizing:border-box; padding:8px 10px; border-radius:7px; border:1px solid var(--border); background:var(--surface); color:var(--ink); font-size:13.5px; font-family:var(--font-mono); }
+  .calc-box .btn{ background:var(--accent); color:var(--surface); border:none; padding:9px 18px; border-radius:7px; font-size:13.5px; font-weight:700; cursor:pointer; font-family:var(--font-display); }
+  .calc-box .btn:hover{ opacity:.9; }
+  .calc-box .btn.secondary{ background:transparent; border:1px solid var(--border); color:var(--ink); margin-left:8px; }
+  .task-row{ display:grid; grid-template-columns:2fr 1fr 2fr auto; gap:8px; margin-bottom:8px; align-items:center; }
+  @media (max-width:760px){ .task-row{ grid-template-columns:1fr 1fr; } }
+  .task-row .rm{ background:var(--risk-high-soft); color:var(--risk-high); border:1px solid var(--risk-high); border-radius:6px; cursor:pointer; padding:6px 9px; font-size:12px; }
+  .calc-result{ background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 18px; margin-top:14px; }
+  .result-row{ display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px dashed var(--border); font-size:13.5px; }
+  .result-row:last-child{ border-bottom:none; }
+  .result-row .rl{ color:var(--ink-faint); }
+  .result-row .rv{ font-weight:700; font-family:var(--font-mono); color:var(--ink); }
+  .cp-table{ font-family:var(--font-mono); font-size:12.5px; }
+  .cp-crit{ color:var(--risk-high); font-weight:700; }
+  .badge-crit{ background:var(--risk-high); color:#fff; padding:1px 8px; border-radius:12px; font-size:11px; font-weight:700; font-family:var(--font-mono); }
+
+  /* Quiz */
+  .quiz{ margin-top:28px; border-top:1px solid var(--border); padding-top:20px; }
+  .quiz-title{ font-family:var(--font-display); font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); margin-bottom:12px; }
+  .quiz-q{ margin-bottom:14px; font-size:14px; }
+  .quiz-q .qq{ font-weight:700; margin-bottom:6px; }
+  .quiz-q label{ display:block; font-size:13.5px; color:var(--ink-soft); padding:4px 0 4px 4px; cursor:pointer; }
+  .quiz-q label:hover{ color:var(--ink); }
+  .quiz-q input[type=radio]{ margin-right:8px; accent-color:var(--accent); }
+  .quiz-score{ margin-top:10px; padding:10px 14px; border-radius:8px; font-size:13.5px; font-weight:700; display:none; }
+  .quiz-score.show{ display:block; }
+  .quiz-score.ok{ background:var(--risk-low-soft); color:var(--risk-low); }
+  .quiz-score.warn{ background:var(--risk-med-soft); color:var(--risk-med); }
+
+  /* Notes */
+  .notes-box{ margin-top:16px; }
+  .notes-box summary{ cursor:pointer; font-family:var(--font-mono); font-size:11.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.05em; }
+  .notes-box textarea{ width:100%; box-sizing:border-box; margin-top:8px; min-height:70px; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--surface); color:var(--ink); font-family:var(--font-body); font-size:13.5px; resize:vertical; }
+
+  /* Certificate module */
+  .cert-form{ display:flex; gap:10px; max-width:420px; margin:16px 0; }
+  .cert-form input{ flex:1; padding:9px 12px; border-radius:7px; border:1px solid var(--border); font-size:14px; background:var(--surface); color:var(--ink); }
+  #cert-canvas{ width:100%; max-width:760px; border:1px solid var(--border); border-radius:10px; margin-top:16px; display:none; }
+  .cert-locked{ background:var(--flag-soft); color:var(--flag); border-radius:8px; padding:12px 16px; font-size:13.5px; margin-top:12px; }
+
+  /* PM Mentor floating widget */
+  #pm-mentor-fab{ position:fixed; right:22px; bottom:22px; width:54px; height:54px; border-radius:50%; background:var(--accent); color:var(--surface); border:none; font-size:22px; box-shadow:var(--shadow); cursor:pointer; z-index:50; }
+  #pm-mentor-panel{ position:fixed; right:22px; bottom:86px; width:340px; max-width:88vw; max-height:70vh; background:var(--surface); border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow); display:none; flex-direction:column; z-index:50; overflow:hidden; }
+  #pm-mentor-panel.open{ display:flex; }
+  .pmm-head{ background:var(--accent); color:var(--surface); padding:12px 14px; font-family:var(--font-display); font-weight:700; font-size:13.5px; display:flex; justify-content:space-between; align-items:center; }
+  .pmm-head button{ background:none; border:none; color:var(--surface); font-size:16px; cursor:pointer; }
+  .pmm-body{ flex:1; overflow-y:auto; padding:12px 14px; font-size:13px; }
+  .pmm-note{ font-size:11px; color:var(--ink-faint); font-style:italic; margin-bottom:10px; }
+  .pmm-a{ background:var(--surface-2); border-radius:8px; padding:9px 11px; margin-bottom:8px; font-size:12.5px; line-height:1.5; }
+  .pmm-a b{ display:block; color:var(--accent); font-size:11px; text-transform:uppercase; margin-bottom:3px; }
+  .pmm-input-row{ display:flex; border-top:1px solid var(--border); }
+  .pmm-input-row input{ flex:1; border:none; padding:10px 12px; font-size:13px; background:var(--surface); color:var(--ink); }
+  .pmm-input-row button{ border:none; background:var(--accent); color:var(--surface); padding:0 16px; cursor:pointer; font-weight:700; }
+
+  /* ---------- PREVIEW LOCK ---------- */
+  .preview-banner{ background:#B3372C; color:#fff; padding:10px 20px; font-family:var(--font-mono); font-size:13px; display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; text-align:center; }
+  .preview-banner b{ font-family:var(--font-display); font-size:13.5px; letter-spacing:.02em; }
+  .preview-banner .pb-cta{ background:#fff; color:#B3372C; padding:6px 14px; border-radius:6px; font-weight:700; text-decoration:none; font-family:var(--font-display); font-size:12.5px; cursor:pointer; }
+  .preview-banner .pb-cta:hover{ opacity:.88; }
+  .nav-lock{ margin-left:auto; font-size:11px; opacity:.55; flex:0 0 auto; }
+  .lock-card{ margin-top:22px; border:1px dashed var(--flag); background:var(--flag-soft); border-radius:10px; padding:28px 26px; text-align:center; }
+  .lock-card .lock-icon{ font-size:26px; margin-bottom:8px; }
+  .lock-card .lock-text{ font-size:14.5px; color:var(--ink-soft); max-width:52ch; margin:0 auto 16px; }
+  .lock-card .lock-cta{ display:inline-block; background:var(--accent); color:#fff; font-family:var(--font-display); font-weight:700; font-size:14px; padding:10px 20px; border-radius:7px; text-decoration:none; cursor:pointer; }
+  .lock-card .lock-cta:hover{ opacity:.9; }
+</style>
+</head>
+<body>
+
+<script>var PURCHASE_URL = "https://www.etsy.com/your-listing-here";</script>
+<div class="preview-banner">
+  <span>🔒 <b>ÖNİZLEME SÜRÜMÜ</b> — Modül 0–1 ve Araç Kiti'nden 3 modül tamamen açık. Kalan 30 modül tam sürümde.</span>
+  <a class="pb-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al — 2.500 ₺</a>
+</div>
+
+
+<div class="layout">
+  <aside class="sidebar">
+    <p class="sb-eyebrow">🛡️ Savunma &amp; IT Sektörleri</p>
+    <h1 class="sb-title">Project Manager /<br>Project Engineer<br>Crash Course</h1>
+    <p class="sb-sub">Mülakat ve iş hazırlığı: planlama, satın alma, bütçe ve uyumluluk konularını gerçek örneklerle tazeleme.</p>
+
+    <div class="progress-wrap">
+      <div class="progress-label"><span>İLERLEME</span><span id="progress-pct">0%</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+
+    <ul class="nav" id="nav-list">
+      <li><a href="#m0"><span class="nav-num" data-mod="m0"><span>0</span></span><span class="nav-label">Giriş &amp; Yol Haritası</span></a></li>
+      <li><a href="#m1"><span class="nav-num" data-mod="m1"><span>1</span></span><span class="nav-label">Proje Yaşam Döngüsü</span></a></li>
+      <li><a href="#m2"><span class="nav-num" data-mod="m2"><span>2</span></span><span class="nav-label">Planlama: WBS &amp; Critical Path</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m3"><span class="nav-num" data-mod="m3"><span>3</span></span><span class="nav-label">Risk &amp; Değişiklik Yönetimi</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m4"><span class="nav-num" data-mod="m4"><span>4</span></span><span class="nav-label">Satın Alma: RFI/RFP/RFQ</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m5"><span class="nav-num" data-mod="m5"><span>5</span></span><span class="nav-label">Bütçe &amp; Maliyet Kontrolü</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m6"><span class="nav-num" data-mod="m6"><span>6</span></span><span class="nav-label">Standartlar &amp; Uyumluluk</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m7"><span class="nav-num" data-mod="m7"><span>7</span></span><span class="nav-label">Mülakat Stratejisi</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m8"><span class="nav-num" data-mod="m8"><span>8</span></span><span class="nav-label">AI Araçlarından Faydalanma</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m9"><span class="nav-num" data-mod="m9"><span>9</span></span><span class="nav-label">EVM: CPI &amp; SPI</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m10"><span class="nav-num" data-mod="m10"><span>10</span></span><span class="nav-label">Excel: uygulamalı</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m11"><span class="nav-num" data-mod="m11"><span>11</span></span><span class="nav-label">MS Project: uygulamalı</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m12"><span class="nav-num" data-mod="m12"><span>12</span></span><span class="nav-label">Configuration Mgmt &amp; Standartlar</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m13"><span class="nav-num" data-mod="m13"><span>13</span></span><span class="nav-label">Şirkete Özel &amp; İK Soruları</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m14"><span class="nav-num" data-mod="m14"><span>14</span></span><span class="nav-label">Hızlı Tekrar:25 Soru (TR)</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m15"><span class="nav-num" data-mod="m15"><span>15</span></span><span class="nav-label">Quick Review:25 Q&amp;A (EN)</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m16"><span class="nav-num" data-mod="m16"><span>16</span></span><span class="nav-label">Görüşme Gününe Hazırlık</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m17"><span class="nav-num" data-mod="m17"><span>17</span></span><span class="nav-label">Excel Formülleri: Referans</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m18"><span class="nav-num" data-mod="m18"><span>18</span></span><span class="nav-label">Jira: Kurulum, Takip &amp; JQL</span><span class="nav-lock">🔒</span></a></li>
+
+      <li class="nav-divider" data-i18n="nav_divider_toolkit">— ARAÇ KİTİ —</li>
+      <li><a href="#m19"><span class="nav-num" data-mod="m19"><span>19</span></span><span class="nav-label">PMP Hızlı Referans Kartı</span></a></li>
+      <li><a href="#m20"><span class="nav-num" data-mod="m20"><span>20</span></span><span class="nav-label">Mülakat: Liderlik &amp; Kriz Soruları</span></a></li>
+      <li><a href="#m21"><span class="nav-num" data-mod="m21"><span>21</span></span><span class="nav-label">Procurement Şablonları</span></a></li>
+      <li><a href="#m22"><span class="nav-num" data-mod="m22"><span>22</span></span><span class="nav-label">RAID Log Şablonu</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m23"><span class="nav-num" data-mod="m23"><span>23</span></span><span class="nav-label">Risk Register (5×5)</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m24"><span class="nav-num" data-mod="m24"><span>24</span></span><span class="nav-label">Stakeholder Matrisi</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m25"><span class="nav-num" data-mod="m25"><span>25</span></span><span class="nav-label">İletişim Planı</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m26"><span class="nav-num" data-mod="m26"><span>26</span></span><span class="nav-label">WBS Şablonu</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m27"><span class="nav-num" data-mod="m27"><span>27</span></span><span class="nav-label">Cost Baseline &amp; S-Curve</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m28"><span class="nav-num" data-mod="m28"><span>28</span></span><span class="nav-label">🧮 Critical Path Calculator</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m29"><span class="nav-num" data-mod="m29"><span>29</span></span><span class="nav-label">📈 Earned Value Calculator</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m30"><span class="nav-num" data-mod="m30"><span>30</span></span><span class="nav-label">AI Prompt Kütüphanesi</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m31"><span class="nav-num" data-mod="m31"><span>31</span></span><span class="nav-label">Jira Cheat Sheet</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m32"><span class="nav-num" data-mod="m32"><span>32</span></span><span class="nav-label">Scrum Cheat Sheet</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m33"><span class="nav-num" data-mod="m33"><span>33</span></span><span class="nav-label">PMO Dashboard Şablonu</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m34"><span class="nav-num" data-mod="m34"><span>🎓</span></span><span class="nav-label">Sertifika</span><span class="nav-lock">🔒</span></a></li>
+    </ul>
+
+    <div class="sb-search">
+      <input type="text" id="sb-search-input" placeholder="🔎 Modüllerde ara...">
+    </div>
+    <button class="lang-toggle" id="lang-toggle" type="button">EN</button>
+
+    <p class="sb-footer">İlerleme yalnızca bu tarayıcıda, localStorage üzerinde tutulur. Her modülün sonundaki kutucuğu işaretleyerek takip et.</p>
+  </aside>
+
+  <main>
+
+    <!-- MODULE 0 -->
+    <section class="module wide" id="m0">
+      <p class="m-eyebrow">Modül 0 · Giriş</p>
+      <h2 class="m-title">Bu kurs neden var, nasıl çalışır</h2>
+      <p class="m-intro">Bu bir "yeni bilgi öğrenme" kursu değil, <strong>hafıza tazeleme</strong> kursu. Defence ve IT sektörlerinde ve benzer projelerde bu süreçlerin çoğunun içindeydin; sadece terminolojiyi uzun süredir aktif kullanmıyorsun. Amaç, bu alandaki her sorumluluğu 30–60 saniyede, İngilizce ve örnekle anlatabilecek hale gelmek.</p>
+
+      <div class="case">
+        <span class="case-tag">Bu kurs seni mülakata da hazırlıyor</span>
+        <p>Her modülün sonunda gerçek bir <strong>mülakat sorusu ve İngilizce örnek cevap</strong> var. Ayrıca <a href="#m7">Modül 7</a> mülakat stratejisini, <a href="#m13">Modül 13</a> şirket araştırması ve STAR yöntemini, <a href="#m16">Modül 16</a> ise görüşme gününün kendisini (öz tanıtım, senaryo soruları, teşekkür e-postası) baştan sona kapsıyor. İstersen içerik sırasını takip etmeden doğrudan bu üç modüle atlayıp mülakat hazırlığına odaklanabilirsin.</p>
+      </div>
+
+      <h3>Sorumluluk alanları → kurs modülü eşlemesi</h3>
+      <div class="table-scroll">
+        <table class="data map-table">
+          <thead><tr><th>Tipik sorumluluk / yetkinlik</th><th>Modül</th></tr></thead>
+          <tbody>
+            <tr><td>Schedule, milestone, dependency, critical path</td><td>Modül 2</td></tr>
+            <tr><td>Project planning, resource &amp; capacity management</td><td>Modül 1 &amp; 2</td></tr>
+            <tr><td>Technical / operational / feasibility analysis</td><td>Modül 1</td></tr>
+            <tr><td>Budget, cost breakdown structure, financial forecast</td><td>Modül 5</td></tr>
+            <tr><td>Cost monitoring &amp; control</td><td>Modül 5</td></tr>
+            <tr><td>Supplier sourcing, evaluation, qualification</td><td>Modül 4</td></tr>
+            <tr><td>Supplier negotiation (fiyat, lead time, şartlar)</td><td>Modül 4</td></tr>
+            <tr><td>RFQ, bid analysis, PO, contract management</td><td>Modül 4</td></tr>
+            <tr><td>Progress tracking, scope/timeline/cost adherence</td><td>Modül 2 &amp; 5</td></tr>
+            <tr><td>Risk identification &amp; mitigation</td><td>Modül 3</td></tr>
+            <tr><td>Cross-functional coordination</td><td>Modül 3</td></tr>
+            <tr><td>Compliance: standards, quality, regulations</td><td>Modül 6</td></tr>
+            <tr><td>Reporting, dashboards, mülakat sunumu</td><td>Modül 7</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="case">
+        <span class="case-tag">Çalışma prensibi</span>
+        <p>Her modülde önce tanım, sonra <strong>savunma ve IT sektöründen somut örnek</strong>, sonra gerçek bir mülakat sorusu ve İngilizce örnek cevap var. Araç adını ezberlemek yerine, kararı nasıl verdiğini anlatmayı hedefle: bu fark Modül 7'de detaylı işleniyor.</p>
+      </div>
+
+      <h3>Hızlı Kontrol</h3>
+      <div class="qa-set">
+        <div class="qa-item"><p class="q">Bu kursun amacı nedir?</p><p class="a">Yeni bilgi öğretmek değil, mevcut bilgiyi hafızada tazeleyip 30–60 saniyede örnekle anlatabilir hale getirmek.</p></div>
+        <div class="qa-item"><p class="q">Kurs kaç modülden oluşuyor?</p><p class="a">35 modül (Modül 0–34): ilk 19 modül (0–18) çekirdek kurs, sonraki 16 modül (19–34) araç kiti şablonları, hesaplayıcıları ve sertifikadır.</p></div>
+        <div class="qa-item"><p class="q">Her modülün ortak yapısı nedir?</p><p class="a">Tanım, sektörden somut örnek, mülakat sorusu ve İngilizce örnek cevap.</p></div>
+        <div class="qa-item"><p class="q">"Araç odaklı değil karar odaklı" yaklaşım hangi modülde detaylı işleniyor?</p><p class="a">Modül 7'de.</p></div>
+        <div class="qa-item"><p class="q">Sorumluluk-modül eşleme tablosu ne işe yarar?</p><p class="a">Tipik PM/PE sorumluluklarının hangi modülde işlendiğini hızlıca bulmayı sağlar.</p></div>
+      </div>
+
+      <div class="checkline">
+        <input type="checkbox" id="chk-m0" data-mod="m0">
+        <label for="chk-m0">Yol haritasını okudum, kapsamı anladım.</label>
+      </div>
+    </section>
+
+    <!-- MODULE 1 -->
+    <section class="module" id="m1">
+      <p class="m-eyebrow">Modül 1 · Proje Yönetimi Tazeleme</p>
+      <h2 class="m-title">Proje Yaşam Döngüsü</h2>
+      <p class="m-intro">Mülakatın açılış sorusu genelde budur: <em>"Tell me how you manage a project from beginning to end."</em> Cevabı ezberleme: mantığını öğren, kendi projelerinle doldur.</p>
+
+      <div class="flow-scroll">
+        <div class="flow">
+          <div class="flow-step accent">Initiation</div><div class="flow-arrow">→</div>
+          <div class="flow-step accent">Planning</div><div class="flow-arrow">→</div>
+          <div class="flow-step accent">Execution</div><div class="flow-arrow">→</div>
+          <div class="flow-step accent">Monitoring &amp; Controlling</div><div class="flow-arrow">→</div>
+          <div class="flow-step accent">Closing</div>
+        </div>
+      </div>
+
+      <h3>Initiation</h3>
+      <p>Sorulan sorular: Projenin amacı ne? Müşteri kim? Kapsam (scope) ne? Bütçe var mı? Risk var mı? Sponsor kim? Teslim edilecek (deliverable) ne?</p>
+      <p><strong>Çıktı:</strong> Project Charter.</p>
+
+      <h3>Planning</h3>
+      <p>En kritik aşama. Bu aşamada hazırlanır:</p>
+      <ul class="tight">
+        <li>WBS</li><li>Schedule</li><li>Budget</li><li>Risk Register</li>
+        <li>Stakeholder Register</li><li>Procurement Plan</li>
+        <li>Communication Plan</li><li>Quality Plan</li><li>Resource Plan</li>
+      </ul>
+
+      <h3>Execution</h3>
+      <p>İşin fiilen yapıldığı aşama: mühendisler çalışır, PCB üretilir, test yapılır, tedarikçi ürün gönderir.</p>
+
+      <h3>Monitoring &amp; Controlling</h3>
+      <p>Her hafta sorulan kontrol soruları: Planın önünde miyiz, geride miyiz? Bütçe aşıldı mı? Yeni risk oluştu mu? Tedarikçi gecikti mi? Change request geldi mi?</p>
+
+      <h3>Closing</h3>
+      <p>Son teslim, kabul (acceptance), lessons learned, final report, sözleşme kapanışı, arşivleme.</p>
+
+      <div class="qa">
+        <div class="qa-q">What is the most important phase of project management?</div>
+        <div class="qa-a">Planning is the most critical phase because a well-planned project significantly increases the probability of successful execution. A detailed schedule, risk plan, budget and procurement strategy help reduce uncertainty throughout the project lifecycle.</div>
+      </div>
+
+      <h3>Hızlı Kontrol</h3>
+      <div class="qa-set">
+        <div class="qa-item"><p class="q">Proje yaşam döngüsünün beş fazı nedir?</p><p class="a">Initiation, Planning, Execution, Monitoring &amp; Controlling, Closing.</p></div>
+        <div class="qa-item"><p class="q">Initiation fazının çıktısı nedir?</p><p class="a">Project Charter.</p></div>
+        <div class="qa-item"><p class="q">Planning fazında hazırlanan belgelerden üç tanesini say.</p><p class="a">WBS, Schedule, Budget (ayrıca Risk Register, Procurement Plan, Stakeholder Register).</p></div>
+        <div class="qa-item"><p class="q">Monitoring &amp; Controlling fazında hangi sorular sorulur?</p><p class="a">Plana göre ileride miyiz geride miyiz, bütçe aşıldı mı, yeni risk oluştu mu, tedarikçi gecikti mi.</p></div>
+        <div class="qa-item"><p class="q">Planning neden en kritik faz kabul edilir?</p><p class="a">İyi bir planlama, sonraki tüm aşamalardaki belirsizliği azaltır.</p></div>
+      </div>
+
+      <div class="checkline">
+        <input type="checkbox" id="chk-m1" data-mod="m1">
+        <label for="chk-m1">5 fazı ve her fazın çıktısını İngilizce anlatabiliyorum.</label>
+      </div>
+    </section>
+
+    <!-- MODULE 2 -->
+    <section class="module wide" id="m2">
+  <p class="m-eyebrow">Modül 2 · Planlama Araçları</p>
+  <h2 class="m-title">WBS, Milestone, Dependency, Critical Path, Baseline</h2>
+  <p class="m-intro">"Detailed project schedules, milestones, dependencies, and critical paths" — bu rolün temel sorumluluklarından birinin karşılığı burası.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 3 -->
+    <section class="module" id="m3">
+  <p class="m-eyebrow">Modül 3 · Risk &amp; Değişiklik Yönetimi</p>
+  <h2 class="m-title">Risk Register, Change Request, RAID, Stakeholders</h2>
+  <p class="m-intro">"Identify risks, develop mitigation plans" ve "coordinate cross-functional teams" — bu rolün temel sorumluluklarının karşılığı.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 4 -->
+    <section class="module wide" id="m4">
+  <p class="m-eyebrow">Modül 4 · Satın Alma</p>
+  <h2 class="m-title">Procurement: RFI, RFP, RFQ ve tedarikçi yönetimi</h2>
+  <p class="m-intro">"Manage procurement processes... lead supplier negotiations... execute purchasing activities such as RFQs, bid analysis, purchase orders" — bu sorumlulukların tamamı burada.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 5 -->
+    <section class="module wide" id="m5">
+  <p class="m-eyebrow">Modül 5 · Finans</p>
+  <h2 class="m-title">Bütçe, Maliyet Kontrolü &amp; Finansal Analiz</h2>
+  <p class="m-intro">"Prepare project budgets, cost breakdown structures, financial forecasts" ve "monitor and control project costs" — bu alanın temel sorumlulukları.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 6 -->
+    <section class="module" id="m6">
+  <p class="m-eyebrow">Modül 6 · Uyumluluk</p>
+  <h2 class="m-title">Standartlar, Kalite ve Regülasyonlar</h2>
+  <p class="m-intro">"Ensure compliance with internal standards, quality requirements, and relevant regulations" — savunma ve IT sektöründe en çok sorulan konulardan biri.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 7 -->
+    <section class="module wide" id="m7">
+  <p class="m-eyebrow">Modül 7 · Kapanış</p>
+  <h2 class="m-title">Mülakat Stratejisi &amp; Yarının Planı</h2>
+  <p class="m-intro">Şirketler genelde Excel bilen bir mühendis aramaz, <strong>proje nasıl yönetilir bilen</strong> bir mühendis arar. Excel ve MS Project sadece araç; asıl aranan şey Planning, Risk, Supplier, Cost, Schedule, Coordination.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 8 -->
+    <section class="module wide" id="m8">
+  <p class="m-eyebrow">Modül 8 · Verimlilik</p>
+  <h2 class="m-title">AI araçlarından nasıl faydalanılır</h2>
+  <p class="m-intro">Doğrudan sorulmayabilir ama her mülakatçının aklından geçen soru: "Günlük işini hızlandırmak için AI kullanıyor musun?" Amaç AI'a karar verdirmek değil: tekrarlayan, zaman yiyen işleri AI'a devredip kendi zamanını analiz ve karar vermeye ayırmak.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 9 -->
+    <section class="module wide" id="m9">
+  <p class="m-eyebrow">Modül 9 · İleri Finansal Takip</p>
+  <h2 class="m-title">Earned Value: CPI &amp; SPI</h2>
+  <p class="m-intro">Bütçe sapmasını ve schedule sapmasını aynı anda, tek bir sayısal çerçeveyle ölçmenin adı Earned Value Management (EVM). <a href="#m5">Modül 5</a>'teki bütçe/cost control temelinin üzerine inşa edilir.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 10 -->
+    <section class="module wide" id="m10">
+  <p class="m-eyebrow">Modül 10 · Uygulamalı Araç</p>
+  <h2 class="m-title">Excel: Project Engineer seviyesi</h2>
+  <p class="m-intro">"Proficiency in MS Office tools (especially Excel and MS Project)" — bu rolün standart beklentilerinden biri. Amaç fonksiyon ezberlemek değil, hangi işte hangi aracı kullanacağını bilmek.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 11 -->
+    <section class="module wide" id="m11">
+  <p class="m-eyebrow">Modül 11 · Uygulamalı Araç</p>
+  <h2 class="m-title">MS Project: kurulumdan takibe</h2>
+  <p class="m-intro"><a href="#m2">Modül 2</a>'deki WBS/milestone/dependency/critical path/baseline kavramlarının MS Project'te adım adım karşılığı.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 12 -->
+    <section class="module wide" id="m12">
+  <p class="m-eyebrow">Modül 12 · Sektöre Özel</p>
+  <h2 class="m-title">Configuration Management &amp; Sektör Standartları</h2>
+  <p class="m-intro"><a href="#m6">Modül 6</a>'daki uyumluluk konusunun savunma ve IT sektörlerine özel derinleşmiş hali: konfigürasyon yönetiminin ve sektör standartlarının proje mühendisliğindeki karşılığı.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 13 -->
+    <section class="module wide" id="m13">
+  <p class="m-eyebrow">Modül 13 · Mülakat Hazırlığı</p>
+  <h2 class="m-title">Şirkete özel &amp; İK soruları</h2>
+  <p class="m-intro">Not: Bu kursta hedef şirket hakkında doğrulanmış, güncel bilgi yok: bu yüzden burada gerçek olmayan şirket detayları uydurmak yerine, mülakattan önce kendi araştırmanı yapman için bir çerçeve ve genel davranışsal soru bankası veriyorum.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 14 -->
+    <section class="module wide" id="m14">
+  <p class="m-eyebrow">Modül 14 · Hızlı Tekrar</p>
+  <h2 class="m-title">25 Soru: Türkçe</h2>
+  <p class="m-intro">Modül 1–13'ün tamamını kapsayan hızlı özet tekrarı. Cevabı örtüp kendi kendine sorarak çalış.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 15 -->
+    <section class="module wide" id="m15">
+  <p class="m-eyebrow">Module 15 · Quick Review</p>
+  <h2 class="m-title">25 Q&amp;A: English</h2>
+  <p class="m-intro">Same coverage as Module 14, in English: practice saying these out loud before the interview.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 16 -->
+    <section class="module wide" id="m16">
+  <p class="m-eyebrow">Modül 16 · Görüşme Günü</p>
+  <h2 class="m-title">Görüşme Gününe Hazırlık</h2>
+  <p class="m-intro">Modül 7 stratejiyi, Modül 13 şirket araştırması ve STAR'ı kapsıyordu. Bu modül görüşmenin kendisinde geçen 45–60 dakikayı (açılıştan teşekkür e-postasına kadar) kapsar.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 17 -->
+    <section class="module wide" id="m17">
+  <p class="m-eyebrow">Modül 17 · Uygulamalı Referans</p>
+  <h2 class="m-title">Excel Formülleri: Data Analizi Referansı</h2>
+  <p class="m-intro"><a href="#m10">Modül 10</a>'daki Excel temelinin üzerine, 500 satırlık gerçekçi bir satış veri setiyle kurulmuş kapsamlı formül referansı. Amaç, "hangi formülü ne zaman kullanırsın?" sorusuna kategori kategori, örnekle cevap verebilmek.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 18 -->
+    <section class="module wide" id="m18">
+  <p class="m-eyebrow">Modül 18 · Uygulamalı Araç</p>
+  <h2 class="m-title">Jira: Proje Oluşturma, Takip &amp; JQL</h2>
+  <p class="m-intro">"Reporting, dashboards" ve "track project progress" gibi sorumlulukların IT/savunma projelerinde en sık kullanılan aracı. Bu modül proje kurulumundan, günlük takibe ve JQL ile özel sorgu/rapor yazmaya kadar uçtan uca gidiyor.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 19 -->
+    <section class="module wide" id="m19">
+      <p class="m-eyebrow">Araç Kiti · Referans</p>
+      <h2 class="m-title">PMP Hızlı Referans Kartı</h2>
+      <p class="m-intro">PMI PMBOK sınavına veya bir mülakata dakikalar kala bakabileceğin, 5 süreç grubu × 10 bilgi alanı haritası ve en çok sorulan formüller.</p>
+
+      <h3>5 Süreç Grubu × 10 Bilgi Alanı</h3>
+      <div class="table-scroll">
+        <table class="data">
+          <thead><tr><th>Bilgi Alanı</th><th>Başlatma</th><th>Planlama</th><th>Yürütme</th><th>İzleme &amp; Kontrol</th><th>Kapanış</th></tr></thead>
+          <tbody>
+            <tr><td><b>Entegrasyon</b></td><td>Charter</td><td>PM Planı</td><td>İşi Yönet</td><td>Entegre Değişiklik Kontrolü</td><td>Kapanış</td></tr>
+            <tr><td><b>Kapsam</b></td><td>—</td><td>WBS, Gereksinimler</td><td>—</td><td>Scope Validation/Control</td><td>—</td></tr>
+            <tr><td><b>Zaman</b></td><td>—</td><td>Aktivite Sıralama, Süre Tahmini, Takvim</td><td>—</td><td>Schedule Control</td><td>—</td></tr>
+            <tr><td><b>Maliyet</b></td><td>—</td><td>Bütçeleme</td><td>—</td><td>Cost Control</td><td>—</td></tr>
+            <tr><td><b>Kalite</b></td><td>—</td><td>Kalite Planı</td><td>Kaliteyi Yönet</td><td>Kalite Kontrol</td><td>—</td></tr>
+            <tr><td><b>Kaynak</b></td><td>—</td><td>Kaynak Planı</td><td>Takımı Geliştir/Yönet</td><td>Kaynak Kontrolü</td><td>—</td></tr>
+            <tr><td><b>İletişim</b></td><td>—</td><td>İletişim Planı</td><td>İletişimi Yönet</td><td>İletişimi İzle</td><td>—</td></tr>
+            <tr><td><b>Risk</b></td><td>—</td><td>Risk Tanımlama, Analiz, Yanıt Planı</td><td>Yanıtları Uygula</td><td>Riskleri İzle</td><td>—</td></tr>
+            <tr><td><b>Tedarik</b></td><td>—</td><td>Tedarik Planı</td><td>Tedarikleri Yürüt</td><td>Tedarik Kontrolü</td><td>—</td></tr>
+            <tr><td><b>Paydaş</b></td><td>Paydaş Tanımlama</td><td>Katılım Planı</td><td>Katılımı Yönet</td><td>Katılımı İzle</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid2">
+        <div>
+          <h3>🧮 Temel Formüller</h3>
+          <div class="table-scroll">
+          <table class="data">
+            <tr><td>CPI = EV / AC</td><td>Maliyet verimliliği</td></tr>
+            <tr><td>SPI = EV / PV</td><td>Takvim verimliliği</td></tr>
+            <tr><td>CV = EV − AC</td><td>Maliyet sapması</td></tr>
+            <tr><td>SV = EV − PV</td><td>Takvim sapması</td></tr>
+            <tr><td>EAC = BAC / CPI</td><td>Tahmini toplam maliyet</td></tr>
+            <tr><td>ETC = EAC − AC</td><td>Kalan tahmini maliyet</td></tr>
+            <tr><td>VAC = BAC − EAC</td><td>Kapanışta beklenen sapma</td></tr>
+            <tr><td>PERT = (O+4M+P)/6</td><td>Ağırlıklı 3-nokta tahmini</td></tr>
+            <tr><td>Float = LS − ES</td><td>Zamanlama esnekliği</td></tr>
+          </table>
+          </div>
+        </div>
+        <div>
+          <h3>⚖️ Sözleşme &amp; Risk Notları</h3>
+          <div class="table-scroll">
+          <table class="data">
+            <tr><td>FFP</td><td>Sabit fiyat — risk satıcıda</td></tr>
+            <tr><td>CPFF</td><td>Maliyet + sabit ücret — risk alıcıda</td></tr>
+            <tr><td>T&amp;M</td><td>Zaman &amp; malzeme — küçük/belirsiz kapsam</td></tr>
+            <tr><td>Pozitif risk</td><td>Exploit / Enhance / Share / Accept</td></tr>
+            <tr><td>Negatif risk</td><td>Avoid / Transfer / Mitigate / Accept</td></tr>
+            <tr><td>Contingency reserve</td><td>Bilinen riskler için</td></tr>
+            <tr><td>Management reserve</td><td>Bilinmeyen-bilinmeyenler; baseline dışı</td></tr>
+          </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="case">
+        <span class="case-tag">Sınav/mülakat günü hatırlatması</span>
+        <p>PMI mantığı: her zaman <strong>önceden planlamış</strong> olan seçeneği işaretle, ilk tepkisel/eskale eden seçeneği değil. Bir risk gerçekleşirse artık bir <strong>issue</strong>'dur — RAID log'a işlenir ve kontenjans plan devreye girer.</p>
+      </div>
+
+      <div class="checkline">
+        <input type="checkbox" id="chk-m19" data-mod="m19">
+        <label for="chk-m19">PMP formüllerini ve süreç grubu haritasını gözden geçirdim.</label>
+      </div>
+    </section>
+
+    <!-- MODULE 20 -->
+    <section class="module wide" id="m20">
+      <p class="m-eyebrow">Araç Kiti · Mülakat</p>
+      <h2 class="m-title">Mülakat: Liderlik &amp; Kriz Soru Bankası</h2>
+      <p class="m-intro">Modül 13-16'daki genel mülakat hazırlığına ek olarak, kıdemli PM/PMO pozisyonlarında sorulan liderlik, kriz yönetimi ve çok paydaşlı karar senaryolarına odaklı 12 soru.</p>
+
+      <div class="qa-set">
+        <div class="qa-item"><p class="q">Ekibinde iki kişi aynı görevin sahipliği konusunda anlaşamıyor, sen nasıl müdahale edersin?</p><p class="a">Önce ayrı ayrı dinler, RACI'de sahipliği netleştirir, gerekirse WBS/görev tanımını güncelleyip her ikisine yazılı olarak teyit ederim.</p></div>
+        <div class="qa-item"><p class="q">Kritik bir tedarikçi teslimat tarihini son anda 6 hafta öteledi, ne yaparsın?</p><p class="a">Kritik yol etkisini hesaplarım, alternatif tedarikçi/iş etrafından dolaşma (workaround) seçeneklerini değerlendiririm, sponsor ve müşteriyi etki ve seçeneklerle birlikte hemen bilgilendiririm.</p></div>
+        <div class="qa-item"><p class="q">Sponsorun istediği bir değişiklik baseline'ı bozuyor; nasıl yönetirsin?</p><p class="a">Change request açarım, maliyet/takvim/risk etkisini nicel olarak sunarım, CCB onayı olmadan uygulamam.</p></div>
+        <div class="qa-item"><p class="q">Ekip moralinin düştüğünü fark ettin, ilk adımın ne olur?</p><p class="a">1:1 görüşmelerle kök nedeni anlarım (iş yükü mü, belirsizlik mi, iletişim mi), sonra somut ve ölçülebilir bir aksiyon planı paylaşırım.</p></div>
+        <div class="qa-item"><p class="q">Aynı anda üç proje kritik durumda, önceliklendirmeyi nasıl yaparsın?</p><p class="a">İş değeri, sözleşmesel yükümlülük, risk maruziyeti ve stratejik önem kriterleriyle bir önceliklendirme matrisi kurar, sponsordan teyit alırım.</p></div>
+        <div class="qa-item"><p class="q">Bir riskin gerçekleştiğini fark ettin ama kimse haberdar değil, ne yaparsın?</p><p class="a">Derhal issue log'a işler, etkiyi değerlendirir, ilgili paydaşları ve sponsoru zaman kaybetmeden bilgilendiririm — gizlemek en büyük hata olur.</p></div>
+        <div class="qa-item"><p class="q">Üst yönetim projeyi durdurmayı düşünüyor, sen ne sunarsın?</p><p class="a">EVM verileri (CPI/SPI), kalan iş, alternatif senaryolar (devam/durdur/yeniden kapsamlandır) ve her birinin maliyet-fayda analizini sunarım.</p></div>
+        <div class="qa-item"><p class="q">Yeni bir PM olarak ekibin güvenini nasıl kazanırsın?</p><p class="a">Önce dinler, mevcut süreçleri saygıyla öğrenirim, erken küçük kazanımlar sağlarım ve kararlarımı şeffaf gerekçelerle paylaşırım.</p></div>
+        <div class="qa-item"><p class="q">İki paydaş çelişen önceliklere sahip, nasıl uzlaştırırsın?</p><p class="a">Stakeholder matrisindeki güç/etki konumlarını göz önünde bulundurur, ortak hedefi (proje başarısı) vurgulayarak veriye dayalı bir orta yol öneririm.</p></div>
+        <div class="qa-item"><p class="q">Configuration management'te bir sürüm karmaşası yaşandı, nasıl düzeltirsin?</p><p class="a">CI listesini denetlerim, doğru baseline'ı tespit ederim, ARAS/PLM gibi araçta düzeltici kayıt açar, kök nedeni önlemek için audit sıklığını artırırım.</p></div>
+        <div class="qa-item"><p class="q">Scrum Master iken takım "hız" baskısı hissediyor, nasıl korursun?</p><p class="a">Velocity'nin bir hedef değil bir tahmin aracı olduğunu hatırlatır, sprint kapsamını takımla birlikte gerçekçi tutar, süreci hızlandırmak yerine engelleri kaldırırım.</p></div>
+        <div class="qa-item"><p class="q">Bir müşteri sözleşme dışı ek talepte bulunuyor, nasıl yanıt verirsin?</p><p class="a">Talebi scope creep olarak işaretler, sözleşme kapsamıyla karşılaştırır, ek iş için resmi bir change order/teklif süreci başlatırım.</p></div>
+      </div>
+
+      <div class="checkline">
+        <input type="checkbox" id="chk-m20" data-mod="m20">
+        <label for="chk-m20">Liderlik &amp; kriz sorularını gözden geçirdim.</label>
+      </div>
+    </section>
+
+    <!-- MODULE 21 -->
+    <section class="module wide" id="m21">
+      <p class="m-eyebrow">Araç Kiti · Şablon</p>
+      <h2 class="m-title">Procurement Şablonları</h2>
+      <p class="m-intro">Modül 4'teki RFI/RFP/RFQ kavramlarının doldurulabilir şablon karşılığı: teklif isteme yapısı, tedarikçi skor kartı ve sözleşme tipi karşılaştırması.</p>
+
+      <h3>RFP/RFQ İskeleti</h3>
+      <div class="table-scroll">
+        <table class="data">
+          <thead><tr><th>Bölüm</th><th>İçerik</th></tr></thead>
+          <tbody>
+            <tr><td>1. Giriş &amp; Kapsam</td><td>Proje özeti, ihtiyaç tanımı, teslim tarihleri</td></tr>
+            <tr><td>2. Teknik Gereksinimler</td><td>Şartname, standartlar (ECSS/MIL-STD vb.), performans kriterleri</td></tr>
+            <tr><td>3. Ticari Şartlar</td><td>Fiyatlandırma formatı, ödeme planı, teslim şartları (Incoterms)</td></tr>
+            <tr><td>4. Değerlendirme Kriterleri</td><td>Ağırlıklandırılmış skor: teknik %, ticari %, süre %</td></tr>
+            <tr><td>5. Zaman Çizelgesi</td><td>Soru-cevap süresi, teklif son tarihi, karar tarihi</td></tr>
+            <tr><td>6. Sözleşme Ekleri</td><td>NDA, garanti şartları, ceza/bonus maddeleri</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Tedarikçi Değerlendirme Skor Kartı (örnek)</h3>
+      <div class="table-scroll">
+        <table class="data">
+          <thead><tr><th>Kriter</th><th>Ağırlık</th><th>Tedarikçi A</th><th>Tedarikçi B</th></tr></thead>
+          <tbody>
+            <tr><td>Teknik uygunluk</td><td>%35</td><td>8/10</td><td>9/10</td></tr>
+            <tr><td>Fiyat</td><td>%25</td><td>9/10</td><td>7/10</td></tr>
+            <tr><td>Teslim süresi</td><td>%20</td><td>7/10</td><td>8/10</td></tr>
+            <tr><td>Kalite/sertifikasyon geçmişi</td><td>%20</td><td>9/10</td><td>8/10</td></tr>
+            <tr><td><b>Ağırlıklı Toplam</b></td><td>%100</td><td><b>8.15</b></td><td><b>8.05</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Sözleşme Tipi Karşılaştırması</h3>
+      <div class="compare">
+        <div class="bad"><span class="tag">Riskli taraf: Alıcı</span>CPFF (Cost-Plus-Fixed-Fee) — maliyet aşımı riski büyük ölçüde alıcıda; sıkı maliyet kontrolü ve raporlama gerektirir.</div>
+        <div class="good"><span class="tag">Riskli taraf: Satıcı</span>FFP (Firm-Fixed-Price) — kapsam net olduğunda tercih edilir; belirsiz kapsamda satıcı marjını yüksek tutar.</div>
+      </div>
+
+      <div class="checkline">
+        <input type="checkbox" id="chk-m21" data-mod="m21">
+        <label for="chk-m21">Procurement şablonlarını inceledim.</label>
+      </div>
+    </section>
+
+    <!-- MODULE 22 -->
+    <section class="module wide" id="m22">
+  <p class="m-eyebrow">Araç Kiti · Şablon</p>
+  <h2 class="m-title">RAID Log Şablonu</h2>
+  <p class="m-intro">Risks, Assumptions, Issues, Dependencies — tek tabloda proje "hafızası". Aşağıda dolu bir örnek var; kendi projen için satırları çoğaltman yeterli.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 23 -->
+    <section class="module wide" id="m23">
+  <p class="m-eyebrow">Araç Kiti · Şablon</p>
+  <h2 class="m-title">Risk Register (5×5 Olasılık/Etki)</h2>
+  <p class="m-intro">ECSS-uyumlu 5×5 olasılık/etki matrisi ve puanlama mantığı. Skor = Olasılık × Etki; 15-25 yüksek, 6-14 orta, 1-5 düşük risk bandı.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 24 -->
+    <section class="module wide" id="m24">
+  <p class="m-eyebrow">Araç Kiti · Şablon</p>
+  <h2 class="m-title">Stakeholder Matrisi</h2>
+  <p class="m-intro">Power/Interest 2×2 grid ile paydaşları dört kadrana yerleştir, sonra her biri için katılım stratejisini kayıt altına al.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 25 -->
+    <section class="module wide" id="m25">
+  <p class="m-eyebrow">Araç Kiti · Şablon</p>
+  <h2 class="m-title">İletişim Planı Şablonu</h2>
+  <p class="m-intro">"Kime, ne, ne zaman, nasıl?" sorularını tek tabloda cevaplayan iletişim planı — paydaş matrisiyle birlikte kullanılır (Modül 24).</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 26 -->
+    <section class="module wide" id="m26">
+  <p class="m-eyebrow">Araç Kiti · Şablon</p>
+  <h2 class="m-title">WBS Şablonu</h2>
+  <p class="m-intro">Bir uydu alt sistemi / yazılım projesi örneğiyle 3 seviyeli iş kırılım yapısı (Work Breakdown Structure).</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 27 -->
+    <section class="module wide" id="m27">
+  <p class="m-eyebrow">Araç Kiti · Şablon</p>
+  <h2 class="m-title">Cost Baseline &amp; S-Curve Şablonu</h2>
+  <p class="m-intro">Dönemsel ve kümülatif maliyet planı, S-eğrisi mantığıyla. EVM'de PV çizgisinin temeli budur (bkz. Modül 9).</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 28 -->
+    <section class="module wide" id="m28">
+  <p class="m-eyebrow">Araç Kiti · İnteraktif Hesaplayıcı</p>
+  <h2 class="m-title">🧮 Critical Path Calculator</h2>
+  <p class="m-intro">Görevleri, sürelerini ve öncüllerini (predecessor) gir; araç ileri/geri geçiş (forward/backward pass) yaparak erken/geç başlangıç-bitiş, bolluk (float) ve kritik yolu hesaplasın. Aşağıda örnek bir zamanlama önceden dolduruldu — düzenleyip kendi verinle deneyebilirsin.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 29 -->
+    <section class="module wide" id="m29">
+  <p class="m-eyebrow">Araç Kiti · İnteraktif Hesaplayıcı</p>
+  <h2 class="m-title">📈 Earned Value Calculator</h2>
+  <p class="m-intro">PV, EV, AC ve BAC değerlerini gir; CPI, SPI, CV, SV, EAC, ETC, VAC ve TCPI otomatik hesaplansın (formüller Modül 9 ve Modül 19'da).</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 30 -->
+    <section class="module wide" id="m30">
+  <p class="m-eyebrow">Araç Kiti · Kütüphane</p>
+  <h2 class="m-title">AI Prompt Kütüphanesi</h2>
+  <p class="m-intro">PM işlerinde günlük kullanılan, kopyala-yapıştır hazır 18 prompt. "Kopyala" butonuyla panoya alıp ChatGPT/Claude gibi bir asistana yapıştırabilirsin.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 31 -->
+    <section class="module wide" id="m31">
+  <p class="m-eyebrow">Araç Kiti · Referans</p>
+  <h2 class="m-title">Jira Cheat Sheet</h2>
+  <p class="m-intro">Modül 18'deki Jira kurulum/JQL anlatımının hızlı referans kartı: sık kullanılan JQL sorguları, klavye kısayolları ve issue hiyerarşisi.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 32 -->
+    <section class="module wide" id="m32">
+  <p class="m-eyebrow">Araç Kiti · Referans</p>
+  <h2 class="m-title">Scrum Cheat Sheet</h2>
+  <p class="m-intro">Scrum'ın 3 rolü, 5 event'i, 3 artifact'ı ve Definition of Done/Ready kontrol listeleri.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 33 -->
+    <section class="module wide" id="m33">
+  <p class="m-eyebrow">Araç Kiti · Şablon</p>
+  <h2 class="m-title">PMO Dashboard Şablonu</h2>
+  <p class="m-intro">Bir portföyün genel sağlığını tek ekranda özetleyen örnek bir PMO panosu: KPI kartları + RAG (Kırmızı/Sarı/Yeşil) durum tablosu.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 34 : CERTIFICATE -->
+    <section class="module wide" id="m34">
+  <p class="m-eyebrow">Araç Kiti · Tamamlama</p>
+  <h2 class="m-title">🎓 Sertifika</h2>
+  <p class="m-intro">Tüm 35 modülü tamamladığında adına özel, indirilebilir bir başarı sertifikası oluşturuluyor. Örneği aşağıda:</p>
+  <img src="ornek-sertifika.png" alt="Örnek başarı sertifikası" style="max-width:100%;border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow);display:block;margin:0 auto;">
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Sertifika, tam sürümde tüm modülleri tamamladığında adına otomatik oluşuyor ve PNG olarak indirilebiliyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+  </main>
+</div>
+
+<script>
+(function(){
+  var KEY = 'pe-crash-course-progress';
+  var total = 35;
+  function load(){
+    try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ return {}; }
+  }
+  function save(state){
+    localStorage.setItem(KEY, JSON.stringify(state));
+  }
+  function render(state){
+    var done = 0;
+    document.querySelectorAll('.nav-num').forEach(function(el){
+      var mod = el.getAttribute('data-mod');
+      if(state[mod]){ el.classList.add('done'); done++; }
+      else { el.classList.remove('done'); }
+    });
+    var pct = Math.round((done/total)*100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-pct').textContent = pct + '%';
+  }
+  var state = load();
+  document.querySelectorAll('.checkline input[type="checkbox"]').forEach(function(cb){
+    var mod = cb.getAttribute('data-mod');
+    cb.checked = !!state[mod];
+    cb.addEventListener('change', function(){
+      state[mod] = cb.checked;
+      save(state);
+      render(state);
+    });
+  });
+  render(state);
+})();
+</script>
+
+<script>
+/* ============================================================
+   TOOLKIT LAYER: search, notes, quizzes, calculators,
+   certificate, PM Mentor, TR/EN toggle  (added on top of the
+   original 19-module course; modules m19-m34)
+   ============================================================ */
+
+/* ---------- 1. Sidebar search / filter ---------- */
+(function(){
+  var input = document.getElementById('sb-search-input');
+  if(!input) return;
+  input.addEventListener('input', function(){
+    var q = input.value.trim().toLowerCase();
+    document.querySelectorAll('#nav-list > li').forEach(function(li){
+      if(li.classList.contains('nav-divider')){ return; }
+      var label = li.textContent.toLowerCase();
+      if(!q || label.indexOf(q) !== -1){ li.classList.remove('nav-hidden'); }
+      else { li.classList.add('nav-hidden'); }
+    });
+  });
+})();
+
+/* ---------- 2. Per-module notes (localStorage) ---------- */
+(function(){
+  var NOTES_KEY = 'pe-crash-course-notes';
+  function loadNotes(){ try { return JSON.parse(localStorage.getItem(NOTES_KEY)) || {}; } catch(e){ return {}; } }
+  function saveNotes(n){ localStorage.setItem(NOTES_KEY, JSON.stringify(n)); }
+  var notes = loadNotes();
+  document.querySelectorAll('.module').forEach(function(sec){
+    var id = sec.id;
+    var checkline = sec.querySelector('.checkline');
+    if(!checkline || !checkline.parentNode) return;
+    var box = document.createElement('details');
+    box.className = 'notes-box';
+    var sum = document.createElement('summary');
+    sum.textContent = '📝 Notlarım';
+    var ta = document.createElement('textarea');
+    ta.placeholder = 'Bu modülle ilgili kendi notların...';
+    ta.value = notes[id] || '';
+    ta.addEventListener('input', function(){ notes[id] = ta.value; saveNotes(notes); });
+    box.appendChild(sum);
+    box.appendChild(ta);
+    checkline.parentNode.insertBefore(box, checkline);
+  });
+})();
+
+/* ---------- 3. Module quizzes (auto-scored) ---------- */
+var QUIZ_DATA = {
+  m19: [
+    {q:"CPI formülü nedir?", opts:["EV / AC","PV / AC","EV / PV","AC / EV"], a:0},
+    {q:"Float = 0 olan görev ne anlama gelir?", opts:["Kritik yoldadır","Gecikebilir","İptal edilmelidir","Önemsizdir"], a:0},
+    {q:"Management reserve neyi kapsar?", opts:["Bilinmeyen-bilinmeyenleri","Bilinen riskleri","Kar marjını","Vergiyi"], a:0}
+  ],
+  m20: [
+    {q:"Bir risk gerçekleştiğinde ilk adım nedir?", opts:["Issue log'a işlemek ve bilgilendirmek","Görmezden gelmek","Sadece sponsora söylemek","Beklemek"], a:0},
+    {q:"Değişiklik taleplerini tipik olarak kim onaylar?", opts:["CCB (Change Control Board)","Sadece PM","Müşteri sekreteri","Kimse"], a:0},
+    {q:"Ekip morali düştüğünde ilk adım ne olmalı?", opts:["1:1 görüşmelerle kök nedeni anlamak","Fazla mesai zorunlu kılmak","Görmezden gelmek","Ekibi değiştirmek"], a:0}
+  ],
+  m21: [
+    {q:"FFP (Firm-Fixed-Price) sözleşmesinde risk kimdedir?", opts:["Satıcıda","Alıcıda","Devlette","Kimsede"], a:0},
+    {q:"RFP'deki değerlendirme kriterleri bölümü ne işe yarar?", opts:["Teklifleri objektif puanlamak","Sadece fiyatı göstermek","Yasal zorunluluk","Hiçbiri"], a:0},
+    {q:"T&M sözleşmesi tipik olarak ne zaman tercih edilir?", opts:["Kapsam belirsiz/küçükken","Kapsam tam netken","Hiçbir zaman","Sadece büyük projelerde"], a:0}
+  ],
+  m22: [
+    {q:"RAID neyin kısaltmasıdır?", opts:["Risks, Assumptions, Issues, Dependencies","Risk Analysis Impact Data","Random Assessment Item Database","Hiçbiri"], a:0},
+    {q:"Bir risk gerçekleşirse RAID log'da ne olur?", opts:["Issue olarak işaretlenir","Silinir","Değişmez","Yeniden risk açılır"], a:0},
+    {q:"RAID log tipik olarak ne sıklıkla gözden geçirilir?", opts:["Haftalık proje toplantısında","Yılda bir","Hiç","Sadece proje bitince"], a:0}
+  ],
+  m23: [
+    {q:"Skor = Olasılık × Etki = 20 hangi risk bandındadır?", opts:["Yüksek","Orta","Düşük","Sıfır"], a:0},
+    {q:"ECSS tarzı 5×5 matriste en düşük olası skor kaçtır?", opts:["1","5","10","0"], a:0},
+    {q:"Yüksek riskli bir kalem için tipik yanıt hangisidir?", opts:["Mitigate / Transfer / Avoid","Sadece izlemek","Otomatik kapatmak","Ertelemek"], a:0}
+  ],
+  m24: [
+    {q:"Yüksek güç / yüksek ilgi kadranı hangisidir?", opts:["Manage Closely","Monitor","Keep Informed","Keep Satisfied"], a:0},
+    {q:"Düşük güç / yüksek ilgi kadranı hangisidir?", opts:["Keep Informed","Manage Closely","Monitor","Keep Satisfied"], a:0},
+    {q:"Power/Interest grid tipik olarak hangi şablonla birlikte kullanılır?", opts:["İletişim Planı","Bütçe Planı","WBS","Sözleşme"], a:0}
+  ],
+  m25: [
+    {q:"İletişim planı hangi soruları cevaplar?", opts:["Kime, ne, ne zaman, nasıl","Sadece kime","Sadece ne zaman","Hiçbiri"], a:0},
+    {q:"'Manage Closely' kadranındaki paydaş ne tür iletişim alır?", opts:["Sık ve detaylı","Seyrek ve özet","Hiç","Yıllık"], a:0},
+    {q:"Üst yönetime rapor sıklığı tipik olarak nedir?", opts:["Aylık","Günlük","Saatlik","Hiç"], a:0}
+  ],
+  m26: [
+    {q:"WBS'teki '100% Rule' ne anlama gelir?", opts:["Alt seviyeler üst seviyenin tamamını kapsar","Bütçenin tamamı harcanmalıdır","Ekip %100 dolu olmalıdır","Hiçbiri"], a:0},
+    {q:"WBS'te en alt seviyeye ne denir?", opts:["Work package","Milestone","Epic","Sprint"], a:0},
+    {q:"WBS numaralandırması tipik olarak nasıldır?", opts:["1.0 / 1.1 / 1.1.1","A, B, C","Roma rakamı","Rastgele"], a:0}
+  ],
+  m27: [
+    {q:"S-curve neyi gösterir?", opts:["Kümülatif ilerleme/maliyeti","Günlük hava durumunu","Risk skorunu","Ekip moralini"], a:0},
+    {q:"Cost baseline, EVM'de hangi çizgiye karşılık gelir?", opts:["PV","EV","AC","VAC"], a:0},
+    {q:"S-eğrisinin tipik şekli nasıldır?", opts:["Yavaş - hızlı - yavaş","Düz çizgi","Sürekli azalan","Rastgele"], a:0}
+  ],
+  m28: [
+    {q:"Float nasıl hesaplanır?", opts:["LS − ES","ES − LS","EF − LF","LF + ES"], a:0},
+    {q:"Kritik yoldaki görevlerin float değeri kaçtır?", opts:["0","1","-1","Sonsuz"], a:0},
+    {q:"Forward pass neyi hesaplar?", opts:["ES / EF","LS / LF","Sadece maliyeti","Riski"], a:0}
+  ],
+  m29: [
+    {q:"CPI < 1 ne anlama gelir?", opts:["Bütçe aşımı var","Bütçe altında kalınıyor","Tam zamanında","Erken bitiş"], a:0},
+    {q:"EAC = BAC / CPI formülü tipik olarak ne zaman kullanılır?", opts:["Mevcut maliyet trendi devam edecekse","Hiçbir zaman","Sadece kapanışta","Proje başında"], a:0},
+    {q:"SPI > 1 ne anlama gelir?", opts:["Programın önündesin","Gecikme var","Bütçe aşımı var","Hiçbiri"], a:0}
+  ],
+  m30: [
+    {q:"AI prompt kütüphanesi neden faydalıdır?", opts:["Tekrarlayan işleri hızlandırır","Kararları AI'a bırakır","Riskleri tamamen ortadan kaldırır","Hiçbiri"], a:0},
+    {q:"Bir statü raporu prompt'u tipik olarak neyi ister?", opts:["Özet + riskler + sonraki adımlar","Sadece sayılar","Sadece isimler","Hiçbiri"], a:0},
+    {q:"STAR formatı mülakatta ne için kullanılır?", opts:["Deneyim anlatımı","Bütçe hesaplama","Risk skorlama","WBS oluşturma"], a:0}
+  ],
+  m31: [
+    {q:"'assignee = currentUser()' JQL sorgusu ne işe yarar?", opts:["Bana atanan işleri gösterir","Tüm işleri gösterir","Projeyi siler","Hiçbiri"], a:0},
+    {q:"Epic'in altında tipik olarak ne bulunur?", opts:["Story / Task","Sadece Bug","Sprint","Board"], a:0},
+    {q:"JQL neyin kısaltmasıdır?", opts:["Jira Query Language","Java Query List","Hiçbiri","Bir eklenti adı"], a:0}
+  ],
+  m32: [
+    {q:"Sprint Retrospective'in amacı nedir?", opts:["Süreci iyileştirmek","Kod yazmak","Bütçe onaylamak","Müşteri sunumu yapmak"], a:0},
+    {q:"Definition of Done neyi tanımlar?", opts:["Bir işin bittiğinin kriterlerini","Sprint süresini","Ekip büyüklüğünü","Fiyatı"], a:0},
+    {q:"Product Backlog'un sahibi kimdir?", opts:["Product Owner","Scrum Master","Bir Developer","Müşteri"], a:0}
+  ],
+  m33: [
+    {q:"RAG nedir?", opts:["Red / Amber / Green durum göstergesi","Bir yazılım aracı","Bir risk türü","Bir sözleşme tipi"], a:0},
+    {q:"Genel durumu kırmızı olan bir proje için tipik olarak ne istenir?", opts:["Recovery plan (kurtarma planı)","Hiçbir şey","Projenin her zaman iptali","Ödül"], a:0},
+    {q:"PMO dashboard tipik olarak hangi sıklıkla incelenir?", opts:["Aylık portföy incelemesinde","Hiç","Günlük","Yılda bir"], a:0}
+  ]
+};
+
+(function(){
+  var QUIZ_KEY = 'pe-crash-course-quiz';
+  function loadQ(){ try { return JSON.parse(localStorage.getItem(QUIZ_KEY)) || {}; } catch(e){ return {}; } }
+  function saveQ(s){ localStorage.setItem(QUIZ_KEY, JSON.stringify(s)); }
+  var qstate = loadQ();
+
+  Object.keys(QUIZ_DATA).forEach(function(modId){
+    var sec = document.getElementById(modId);
+    if(!sec) return;
+    var checkline = sec.querySelector('.checkline');
+    if(!checkline || !checkline.parentNode) return;
+
+    var wrap = document.createElement('div');
+    wrap.className = 'quiz';
+    var title = document.createElement('div');
+    title.className = 'quiz-title';
+    title.textContent = '🧠 Bilgini Test Et';
+    wrap.appendChild(title);
+
+    var qs = QUIZ_DATA[modId];
+    qs.forEach(function(item, qi){
+      var qdiv = document.createElement('div');
+      qdiv.className = 'quiz-q';
+      var qq = document.createElement('div');
+      qq.className = 'qq';
+      qq.textContent = (qi + 1) + '. ' + item.q;
+      qdiv.appendChild(qq);
+      item.opts.forEach(function(opt, oi){
+        var lab = document.createElement('label');
+        var rad = document.createElement('input');
+        rad.type = 'radio';
+        rad.name = modId + '-q' + qi;
+        rad.value = oi;
+        lab.appendChild(rad);
+        lab.appendChild(document.createTextNode(' ' + opt));
+        qdiv.appendChild(lab);
+      });
+      wrap.appendChild(qdiv);
+    });
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn secondary small quiz-check-btn';
+    btn.textContent = 'Kontrol Et';
+    var scoreDiv = document.createElement('div');
+    scoreDiv.className = 'quiz-score';
+    btn.addEventListener('click', function(){
+      var correct = 0;
+      qs.forEach(function(item, qi){
+        var sel = wrap.querySelector('input[name="' + modId + '-q' + qi + '"]:checked');
+        if(sel && Number(sel.value) === item.a) correct++;
+      });
+      var pct = Math.round((correct / qs.length) * 100);
+      scoreDiv.textContent = correct + '/' + qs.length + (currentLang === 'en' ? ' correct (' : ' doğru (') + pct + '%)';
+      scoreDiv.className = 'quiz-score show ' + (pct >= 70 ? 'ok' : 'warn');
+      qstate[modId] = {score: correct, total: qs.length, pct: pct};
+      saveQ(qstate);
+    });
+    wrap.appendChild(btn);
+    wrap.appendChild(scoreDiv);
+    checkline.parentNode.insertBefore(wrap, checkline);
+  });
+})();
+
+/* ---------- 4. Critical Path Calculator (module 28) ---------- */
+var cpmCounter = 0;
+var cpmTasks = [];
+function cpmMakeId(){ cpmCounter++; return 'G' + cpmCounter; }
+function cpmAddRow(name, dur, preds){
+  var row = { id: cpmMakeId(), name: name || '', dur: (dur === undefined ? 1 : dur), preds: preds || '' };
+  cpmTasks.push(row);
+  cpmRender();
+}
+function cpmRemove(id){
+  cpmTasks = cpmTasks.filter(function(r){ return r.id !== id; });
+  cpmRender();
+}
+function cpmUpdate(id, field, value){
+  var row = cpmTasks.filter(function(r){ return r.id === id; })[0];
+  if(!row) return;
+  row[field] = (field === 'dur') ? Number(value) : value;
+}
+function cpmRender(){
+  var host = document.getElementById('cpm-rows');
+  if(!host) return;
+  host.innerHTML = '';
+  cpmTasks.forEach(function(row){
+    var div = document.createElement('div');
+    div.className = 'task-row';
+    div.innerHTML =
+      '<div style="display:flex;gap:6px;align-items:center;"><b style="font-family:var(--font-mono);color:var(--accent);font-size:12px;">' + row.id + '</b>' +
+      '<input type="text" value="' + row.name.replace(/"/g,'&quot;') + '" onchange="cpmUpdate(\'' + row.id + '\',\'name\',this.value)"></div>' +
+      '<input type="number" min="0" value="' + row.dur + '" onchange="cpmUpdate(\'' + row.id + '\',\'dur\',this.value)">' +
+      '<input type="text" value="' + row.preds.replace(/"/g,'&quot;') + '" placeholder="örn: G1,G2" onchange="cpmUpdate(\'' + row.id + '\',\'preds\',this.value)">' +
+      '<button type="button" class="rm" onclick="cpmRemove(\'' + row.id + '\')">✕</button>';
+    host.appendChild(div);
+  });
+}
+function cpmEscape(s){
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(ch){
+    return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[ch];
+  });
+}
+function cpmCalculate(){
+  var rows = cpmTasks;
+  if(!rows.length) return;
+  var map = {};
+  rows.forEach(function(r){ map[r.id] = r; });
+  var n = rows.length;
+
+  rows.forEach(function(r){ r.ES = 0; r.EF = Number(r.dur) || 0; });
+  for(var pass = 0; pass < n + 2; pass++){
+    rows.forEach(function(r){
+      var preds = (r.preds || '').split(',').map(function(s){ return s.trim(); }).filter(Boolean);
+      var es = 0;
+      preds.forEach(function(pid){ if(map[pid]) es = Math.max(es, map[pid].EF); });
+      r.ES = es;
+      r.EF = es + (Number(r.dur) || 0);
+    });
+  }
+  var projectDuration = Math.max.apply(null, rows.map(function(r){ return r.EF; }).concat([0]));
+
+  var succ = {};
+  rows.forEach(function(r){ succ[r.id] = []; });
+  rows.forEach(function(r){
+    (r.preds || '').split(',').map(function(s){ return s.trim(); }).filter(Boolean).forEach(function(pid){
+      if(succ[pid]) succ[pid].push(r.id);
+    });
+  });
+  rows.forEach(function(r){ r.LF = projectDuration; r.LS = r.LF - (Number(r.dur) || 0); });
+  for(var pass2 = 0; pass2 < n + 2; pass2++){
+    rows.forEach(function(r){
+      var s = succ[r.id];
+      if(s.length){
+        r.LF = Math.min.apply(null, s.map(function(sid){ return map[sid] ? map[sid].LS : projectDuration; }));
+      } else {
+        r.LF = projectDuration;
+      }
+      r.LS = r.LF - (Number(r.dur) || 0);
+    });
+  }
+  rows.forEach(function(r){ r.float = r.LS - r.ES; r.critical = Math.abs(r.float) < 0.0001; });
+
+  var isEn = (currentLang === 'en');
+  var html = '<div class="calc-result"><div class="table-scroll"><table class="data cp-table">' +
+    '<thead><tr><th>ID</th><th>' + (isEn?'Task':'Görev') + '</th><th>' + (isEn?'Dur':'Süre') + '</th><th>ES</th><th>EF</th><th>LS</th><th>LF</th><th>Float</th><th>' + (isEn?'Critical':'Kritik') + '</th></tr></thead><tbody>';
+  rows.slice().sort(function(a,b){ return a.ES - b.ES; }).forEach(function(r){
+    html += '<tr' + (r.critical ? ' style="background:var(--risk-high-soft);"' : '') + '>' +
+      '<td>' + cpmEscape(r.id) + '</td><td>' + cpmEscape(r.name || '—') + '</td><td>' + r.dur + '</td><td>' + r.ES + '</td><td>' + r.EF + '</td><td>' + r.LS + '</td><td>' + r.LF + '</td><td>' + r.float + '</td>' +
+      '<td>' + (r.critical ? '<span class="badge-crit">' + (isEn?'CRITICAL':'KRİTİK') + '</span>' : '—') + '</td></tr>';
+  });
+  html += '</tbody></table></div>';
+  var criticalChain = rows.filter(function(r){ return r.critical; }).sort(function(a,b){ return a.ES - b.ES; }).map(function(r){ return cpmEscape(r.name || r.id); }).join(' → ');
+  html += '<div class="result-row"><span class="rl">' + (isEn?'Total project duration':'Toplam proje süresi') + '</span><span class="rv">' + projectDuration + (isEn?' days':' gün') + '</span></div>';
+  html += '<div class="result-row"><span class="rl">' + (isEn?'Critical path':'Kritik yol') + '</span><span class="rv">' + (criticalChain || '—') + '</span></div>';
+  html += '</div>';
+  document.getElementById('cpm-result').innerHTML = html;
+}
+/* seed example schedule */
+cpmAddRow('Gereksinim Analizi', 3, '');
+cpmAddRow('Tasarım', 5, 'G1');
+cpmAddRow('Tedarik', 8, 'G1');
+cpmAddRow('Geliştirme', 10, 'G2');
+cpmAddRow('Entegrasyon', 4, 'G4,G3');
+cpmAddRow('Test', 6, 'G5');
+cpmAddRow('Teslim', 2, 'G6');
+
+/* ---------- 5. Earned Value Calculator (module 29) ---------- */
+function evmCalculate(){
+  var bac = Number(document.getElementById('evm-bac').value) || 0;
+  var pv = Number(document.getElementById('evm-pv').value) || 0;
+  var ev = Number(document.getElementById('evm-ev').value) || 0;
+  var ac = Number(document.getElementById('evm-ac').value) || 0;
+  var cpi = ac ? (ev / ac) : 0;
+  var spi = pv ? (ev / pv) : 0;
+  var cv = ev - ac;
+  var sv = ev - pv;
+  var eac = cpi ? (bac / cpi) : bac;
+  var etc = eac - ac;
+  var vac = bac - eac;
+  var denom = (bac - ac);
+  var tcpi = denom ? ((bac - ev) / denom) : 0;
+  var isEn = (currentLang === 'en');
+  function statusPill(v){
+    var cls = v >= 1 ? 'low' : (v >= 0.9 ? 'med' : 'high');
+    var label = v >= 1 ? (isEn?'Good':'İyi') : (v >= 0.9 ? (isEn?'Watch':'Dikkat') : (isEn?'Critical':'Kritik'));
+    return '<span class="pill2 ' + cls + '">' + label + '</span>';
+  }
+  var html = '<div class="calc-result">' +
+    '<div class="result-row"><span class="rl">CV (' + (isEn?'Cost Variance':'Maliyet Sapması') + ')</span><span class="rv">' + cv.toLocaleString() + '</span></div>' +
+    '<div class="result-row"><span class="rl">SV (' + (isEn?'Schedule Variance':'Takvim Sapması') + ')</span><span class="rv">' + sv.toLocaleString() + '</span></div>' +
+    '<div class="result-row"><span class="rl">CPI</span><span class="rv">' + cpi.toFixed(2) + ' ' + statusPill(cpi) + '</span></div>' +
+    '<div class="result-row"><span class="rl">SPI</span><span class="rv">' + spi.toFixed(2) + ' ' + statusPill(spi) + '</span></div>' +
+    '<div class="result-row"><span class="rl">EAC</span><span class="rv">' + eac.toLocaleString(undefined,{maximumFractionDigits:0}) + '</span></div>' +
+    '<div class="result-row"><span class="rl">ETC</span><span class="rv">' + etc.toLocaleString(undefined,{maximumFractionDigits:0}) + '</span></div>' +
+    '<div class="result-row"><span class="rl">VAC</span><span class="rv">' + vac.toLocaleString(undefined,{maximumFractionDigits:0}) + '</span></div>' +
+    '<div class="result-row"><span class="rl">TCPI</span><span class="rv">' + tcpi.toFixed(2) + '</span></div>' +
+    '</div>';
+  document.getElementById('evm-result').innerHTML = html;
+}
+
+/* ---------- 6. AI Prompt Library copy buttons ---------- */
+function copyPromptEl(btn, id){
+  var el = document.getElementById(id);
+  if(!el) return;
+  var text = el.textContent;
+  var done = function(){
+    var old = btn.textContent;
+    btn.textContent = (currentLang === 'en') ? 'Copied!' : 'Kopyalandı!';
+    setTimeout(function(){ btn.textContent = old; }, 1400);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(done);
+  } else {
+    done();
+  }
+}
+
+/* ---------- 7. Certificate generator (module 34) ---------- */
+function computeProgressPct(){
+  try {
+    var state = JSON.parse(localStorage.getItem('pe-crash-course-progress')) || {};
+    var done = 0, total = 35;
+    Object.keys(state).forEach(function(k){ if(state[k]) done++; });
+    return Math.round((done / total) * 100);
+  } catch(e){ return 0; }
+}
+function updateCertLockText(){
+  var pct = computeProgressPct();
+  var note = document.getElementById('cert-progress-note');
+  var lockMsg = document.getElementById('cert-lock-msg');
+  var canvas = document.getElementById('cert-canvas');
+  var dlWrap = document.getElementById('cert-download-wrap');
+  if(note) note.textContent = pct + '%';
+  if(lockMsg){
+    if(pct >= 100){ lockMsg.style.display = 'none'; }
+    else {
+      lockMsg.style.display = '';
+      if(canvas) canvas.style.display = 'none';
+      if(dlWrap) dlWrap.style.display = 'none';
+    }
+  }
+}
+document.addEventListener('change', function(e){
+  if(e.target && e.target.matches && e.target.matches('.checkline input[type="checkbox"]')){
+    updateCertLockText();
+  }
+});
+function certGenerate(){
+  var pct = computeProgressPct();
+  if(pct < 100){ updateCertLockText(); return; }
+  var nameInput = document.getElementById('cert-name');
+  var name = (nameInput.value || '').trim();
+  if(!name){ alert(currentLang === 'en' ? 'Please enter your name.' : 'Lütfen adını gir.'); return; }
+  var canvas = document.getElementById('cert-canvas');
+  canvas.style.display = 'block';
+  var ctx = canvas.getContext('2d');
+  var w = canvas.width, h = canvas.height;
+  ctx.fillStyle = '#F1F4F5'; ctx.fillRect(0, 0, w, h);
+  ctx.strokeStyle = '#24708F'; ctx.lineWidth = 10; ctx.strokeRect(20, 20, w - 40, h - 40);
+  ctx.strokeStyle = '#C07A1E'; ctx.lineWidth = 3; ctx.strokeRect(40, 40, w - 80, h - 80);
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#16232B';
+  ctx.font = '600 24px Georgia, serif';
+  ctx.fillText(currentLang === 'en' ? 'CERTIFICATE OF COMPLETION' : 'BAŞARI SERTİFİKASI', w / 2, 170);
+  ctx.font = 'bold 46px Georgia, serif';
+  ctx.fillStyle = '#24708F';
+  ctx.fillText(name, w / 2, 270);
+  ctx.font = '19px Georgia, serif';
+  ctx.fillStyle = '#4C6270';
+  ctx.fillText('Project Manager / Project Engineer Crash Course', w / 2, 330);
+  ctx.fillText(currentLang === 'en' ? 'has successfully completed all 35 modules and the toolkit.' : '35 modülü ve araç kitini başarıyla tamamlamıştır.', w / 2, 360);
+  var d = new Date();
+  ctx.font = '14px Consolas, monospace';
+  ctx.fillStyle = '#7C8D96';
+  ctx.fillText((currentLang === 'en' ? 'Date: ' : 'Tarih: ') + d.toLocaleDateString(), w / 2, 780);
+  document.getElementById('cert-download-wrap').style.display = 'block';
+}
+function certDownload(){
+  var canvas = document.getElementById('cert-canvas');
+  var link = document.createElement('a');
+  link.download = 'PM-Toolkit-Sertifika.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+updateCertLockText();
+
+/* ---------- 8. PM Mentor: offline smart-search helper ---------- */
+(function(){
+  var fab = document.createElement('button');
+  fab.id = 'pm-mentor-fab';
+  fab.type = 'button';
+  fab.textContent = '💬';
+  fab.title = 'PM Mentor';
+  var panel = document.createElement('div');
+  panel.id = 'pm-mentor-panel';
+  panel.innerHTML =
+    '<div class="pmm-head"><span id="pmm-title">PM Mentor (Çevrimdışı Yardımcı)</span><button type="button" id="pmm-close">✕</button></div>' +
+    '<div class="pmm-body"><div class="pmm-note" id="pmm-note">Bu bir çevrimdışı akıllı arama aracıdır; kurs içeriğinde eşleşen cevapları bulur (gerçek zamanlı üretken AI değildir).</div><div id="pmm-answers"></div></div>' +
+    '<div class="pmm-input-row"><input type="text" id="pmm-input" placeholder="Bir soru yaz..."><button type="button" id="pmm-send">Sor</button></div>';
+  document.body.appendChild(fab);
+  document.body.appendChild(panel);
+  fab.addEventListener('click', function(){ panel.classList.toggle('open'); });
+  document.getElementById('pmm-close').addEventListener('click', function(){ panel.classList.remove('open'); });
+
+  function buildKB(){
+    var kb = [];
+    document.querySelectorAll('.qa-item').forEach(function(item){
+      var q = item.querySelector('.q'), a = item.querySelector('.a');
+      if(q && a) kb.push({ q: q.textContent, a: a.textContent });
+    });
+    Object.keys(QUIZ_DATA).forEach(function(modId){
+      QUIZ_DATA[modId].forEach(function(item){
+        kb.push({ q: item.q, a: item.opts[item.a] });
+      });
+    });
+    return kb;
+  }
+  var KB = buildKB();
+
+  function stem(s){
+    return s.toLowerCase().replace(/[^\wşğüöçıİĞÜŞÖÇ ]/gi, ' ').split(/\s+/).filter(function(w){ return w.length > 2; });
+  }
+  function search(query){
+    var qWords = stem(query);
+    if(!qWords.length) return [];
+    var scored = KB.map(function(item){
+      var text = stem(item.q + ' ' + item.a).join(' ');
+      var score = 0;
+      qWords.forEach(function(w){ if(text.indexOf(w) !== -1) score++; });
+      return { item: item, score: score };
+    }).filter(function(s){ return s.score > 0; });
+    scored.sort(function(a, b){ return b.score - a.score; });
+    return scored.slice(0, 3).map(function(s){ return s.item; });
+  }
+  function ask(){
+    var input = document.getElementById('pmm-input');
+    var q = input.value.trim();
+    if(!q) return;
+    var results = search(q);
+    var box = document.getElementById('pmm-answers');
+    var noResultMsg = (currentLang === 'en') ? 'No matching content found. Try different keywords.' : 'Eşleşen bir içerik bulamadım. Farklı kelimelerle dener misin?';
+    if(!results.length){
+      box.innerHTML = '<div class="pmm-a">' + noResultMsg + '</div>' + box.innerHTML;
+    } else {
+      var html = results.map(function(r){ return '<div class="pmm-a"><b>' + r.q + '</b>' + r.a + '</div>'; }).join('');
+      box.innerHTML = html + box.innerHTML;
+    }
+    input.value = '';
+  }
+  document.getElementById('pmm-send').addEventListener('click', ask);
+  document.getElementById('pmm-input').addEventListener('keydown', function(e){ if(e.key === 'Enter') ask(); });
+})();
+
+/* ---------- 9. TR / EN toggle for toolkit UI chrome ---------- */
+var I18N = {
+  tr: { search_ph:'🔎 Modüllerde ara...', nav_divider:'— ARAÇ KİTİ —', notes_summary:'📝 Notlarım', notes_ph:'Bu modülle ilgili kendi notların...',
+        quiz_title:'🧠 Bilgini Test Et', quiz_check:'Kontrol Et', cert_name_ph:'Adın Soyadın', cert_btn:'Sertifikayı Oluştur', cert_download:'PNG Olarak İndir',
+        mentor_title:'PM Mentor (Çevrimdışı Yardımcı)', mentor_note:'Bu bir çevrimdışı akıllı arama aracıdır; kurs içeriğinde eşleşen cevapları bulur (gerçek zamanlı üretken AI değildir).',
+        mentor_ph:'Bir soru yaz...', mentor_send:'Sor' },
+  en: { search_ph:'🔎 Search modules...', nav_divider:'— TOOLKIT —', notes_summary:'📝 My Notes', notes_ph:'Your notes for this module...',
+        quiz_title:'🧠 Test Your Knowledge', quiz_check:'Check Answers', cert_name_ph:'Your Full Name', cert_btn:'Generate Certificate', cert_download:'Download as PNG',
+        mentor_title:'PM Mentor (Offline Helper)', mentor_note:"This is an offline smart-search helper over this course's own content (not a live generative AI).",
+        mentor_ph:'Type a question...', mentor_send:'Ask' }
+};
+var currentLang = localStorage.getItem('pe-crash-course-lang') || 'tr';
+function applyLang(lang){
+  currentLang = lang;
+  localStorage.setItem('pe-crash-course-lang', lang);
+  var dict = I18N[lang];
+  var searchInput = document.getElementById('sb-search-input'); if(searchInput) searchInput.placeholder = dict.search_ph;
+  document.querySelectorAll('.nav-divider').forEach(function(el){ el.textContent = dict.nav_divider; });
+  document.querySelectorAll('.notes-box summary').forEach(function(el){ el.textContent = dict.notes_summary; });
+  document.querySelectorAll('.notes-box textarea').forEach(function(el){ el.placeholder = dict.notes_ph; });
+  document.querySelectorAll('.quiz-title').forEach(function(el){ el.textContent = dict.quiz_title; });
+  document.querySelectorAll('.quiz-check-btn').forEach(function(el){ el.textContent = dict.quiz_check; });
+  var certNameInput = document.getElementById('cert-name'); if(certNameInput) certNameInput.placeholder = dict.cert_name_ph;
+  var certBtn = document.querySelector('.cert-form .btn'); if(certBtn) certBtn.textContent = dict.cert_btn;
+  var certDlBtn = document.querySelector('#cert-download-wrap button'); if(certDlBtn) certDlBtn.textContent = dict.cert_download;
+  var mentorTitleEl = document.getElementById('pmm-title'); if(mentorTitleEl) mentorTitleEl.textContent = dict.mentor_title;
+  var mentorNoteEl = document.getElementById('pmm-note'); if(mentorNoteEl) mentorNoteEl.textContent = dict.mentor_note;
+  var mentorInput = document.getElementById('pmm-input'); if(mentorInput) mentorInput.placeholder = dict.mentor_ph;
+  var mentorSendBtn = document.getElementById('pmm-send'); if(mentorSendBtn) mentorSendBtn.textContent = dict.mentor_send;
+  var toggleBtn = document.getElementById('lang-toggle'); if(toggleBtn) toggleBtn.textContent = (lang === 'tr') ? 'EN' : 'TR';
+}
+var langToggleBtn = document.getElementById('lang-toggle');
+if(langToggleBtn){
+  langToggleBtn.addEventListener('click', function(){ applyLang(currentLang === 'tr' ? 'en' : 'tr'); });
+}
+applyLang(currentLang);
+
+/* ---------- 10. PWA registration (no-op unless hosted over HTTP(S)) ---------- */
+if('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')){
+  navigator.serviceWorker.register('sw.js').catch(function(){ /* not hosted - ignore */ });
+}
+</script>
+
+</body>
+</html>
