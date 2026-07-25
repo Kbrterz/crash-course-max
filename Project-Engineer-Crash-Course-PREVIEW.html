@@ -133,8 +133,10 @@
   .sb-search input:focus{ outline:2px solid var(--accent); outline-offset:1px; }
   .nav li.nav-hidden{ display:none; }
 
+  .lang-toggle-wrap{ margin-top:10px; }
+  .lang-toggle-label{ display:block; font-family:var(--font-mono); font-size:9.5px; color:var(--ink-faint); letter-spacing:.03em; margin-bottom:5px; }
   .lang-toggle{
-    margin-top:10px; width:100%; padding:7px 10px; border-radius:8px; cursor:pointer;
+    width:100%; padding:7px 10px; border-radius:8px; cursor:pointer;
     border:1px solid var(--border); background:var(--surface-2); color:var(--ink);
     font-family:var(--font-mono); font-size:11px; letter-spacing:.06em; font-weight:700;
   }
@@ -376,7 +378,7 @@
 
 <script>var PURCHASE_URL = "https://www.etsy.com/your-listing-here";</script>
 <div class="preview-banner">
-  <span>🔒 <b>ÖNİZLEME SÜRÜMÜ</b> — Modül 0–1 ve Araç Kiti'nden 3 modül tamamen açık. Kalan 30 modül tam sürümde.</span>
+  <span>🔒 <b>ÖNİZLEME SÜRÜMÜ</b> — Modül 0–1 ve Araç Kiti'nden 3 modül tamamen açık. Kalan 35 modül tam sürümde.</span>
   <a class="pb-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al — 2.500 ₺</a>
 </div>
 
@@ -427,15 +429,24 @@
       <li><a href="#m29"><span class="nav-num" data-mod="m29"><span>29</span></span><span class="nav-label">📈 Earned Value Calculator</span><span class="nav-lock">🔒</span></a></li>
       <li><a href="#m30"><span class="nav-num" data-mod="m30"><span>30</span></span><span class="nav-label">AI Prompt Kütüphanesi</span><span class="nav-lock">🔒</span></a></li>
       <li><a href="#m31"><span class="nav-num" data-mod="m31"><span>31</span></span><span class="nav-label">Jira Cheat Sheet</span><span class="nav-lock">🔒</span></a></li>
-      <li><a href="#m32"><span class="nav-num" data-mod="m32"><span>32</span></span><span class="nav-label">Scrum Cheat Sheet</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m32"><span class="nav-num" data-mod="m32"><span>32</span></span><span class="nav-label">Scrum, Kanban &amp; SAFe</span><span class="nav-lock">🔒</span></a></li>
       <li><a href="#m33"><span class="nav-num" data-mod="m33"><span>33</span></span><span class="nav-label">PMO Dashboard Şablonu</span><span class="nav-lock">🔒</span></a></li>
       <li><a href="#m34"><span class="nav-num" data-mod="m34"><span>🎓</span></span><span class="nav-label">Sertifika</span><span class="nav-lock">🔒</span></a></li>
+      <li class="nav-divider">— İŞ ARAMA &amp; PMP EK PAKETİ —</li>
+      <li><a href="#m35"><span class="nav-num" data-mod="m35"><span>35</span></span><span class="nav-label">Aktif Tekrar Modu</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m36"><span class="nav-num" data-mod="m36"><span>36</span></span><span class="nav-label">CV Hazırlığı</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m37"><span class="nav-num" data-mod="m37"><span>37</span></span><span class="nav-label">LinkedIn Profil Optimizasyonu</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m38"><span class="nav-num" data-mod="m38"><span>38</span></span><span class="nav-label">💰 Maaş Pazarlığı</span><span class="nav-lock">🔒</span></a></li>
+      <li><a href="#m39"><span class="nav-num" data-mod="m39"><span>39</span></span><span class="nav-label">PMP Tarzı Soru Bankası (45)</span><span class="nav-lock">🔒</span></a></li>
     </ul>
 
     <div class="sb-search">
       <input type="text" id="sb-search-input" placeholder="🔎 Modüllerde ara...">
     </div>
-    <button class="lang-toggle" id="lang-toggle" type="button">EN</button>
+    <div class="lang-toggle-wrap">
+      <span class="lang-toggle-label">Arayüz Dili · Modül İçeriği TR Kalır</span>
+      <button class="lang-toggle" id="lang-toggle" type="button">EN</button>
+    </div>
 
     <p class="sb-footer">İlerleme yalnızca bu tarayıcıda, localStorage üzerinde tutulur. Her modülün sonundaki kutucuğu işaretleyerek takip et.</p>
   </aside>
@@ -483,7 +494,7 @@
       <h3>Hızlı Kontrol</h3>
       <div class="qa-set">
         <div class="qa-item"><p class="q">Bu kursun amacı nedir?</p><p class="a">Yeni bilgi öğretmek değil, mevcut bilgiyi hafızada tazeleyip 30–60 saniyede örnekle anlatabilir hale getirmek.</p></div>
-        <div class="qa-item"><p class="q">Kurs kaç modülden oluşuyor?</p><p class="a">35 modül (Modül 0–34): ilk 19 modül (0–18) çekirdek kurs, sonraki 16 modül (19–34) araç kiti şablonları, hesaplayıcıları ve sertifikadır.</p></div>
+        <div class="qa-item"><p class="q">Kurs kaç modülden oluşuyor?</p><p class="a">40 modül (Modül 0–39): ilk 19 modül (0–18) çekirdek kurs, sonraki 21 modül (19–39) araç kiti şablonları, hesaplayıcıları, iş arama paketi (CV, LinkedIn, maaş pazarlığı), 45 soruluk PMP pratik bankası ve sertifikadır.</p></div>
         <div class="qa-item"><p class="q">Her modülün ortak yapısı nedir?</p><p class="a">Tanım, sektörden somut örnek, mülakat sorusu ve İngilizce örnek cevap.</p></div>
         <div class="qa-item"><p class="q">"Araç odaklı değil karar odaklı" yaklaşım hangi modülde detaylı işleniyor?</p><p class="a">Modül 7'de.</p></div>
         <div class="qa-item"><p class="q">Sorumluluk-modül eşleme tablosu ne işe yarar?</p><p class="a">Tipik PM/PE sorumluluklarının hangi modülde işlendiğini hızlıca bulmayı sağlar.</p></div>
@@ -1022,8 +1033,8 @@
     <!-- MODULE 32 -->
     <section class="module wide" id="m32">
   <p class="m-eyebrow">Araç Kiti · Referans</p>
-  <h2 class="m-title">Scrum Cheat Sheet</h2>
-  <p class="m-intro">Scrum'ın 3 rolü, 5 event'i, 3 artifact'ı ve Definition of Done/Ready kontrol listeleri.</p>
+  <h2 class="m-title">Scrum, Kanban &amp; Scaled Agile Cheat Sheet</h2>
+  <p class="m-intro">Scrum'ın 3 rolü, 5 event'i, 3 artifact'ı ve Definition of Done/Ready kontrol listeleri — artı Kanban, SAFe, PI Planning, Sprint metrikleri ve Release Train, IT tarafında agile PM/PE pozisyonları için.</p>
   <div class="lock-card">
     <div class="lock-icon">🔒</div>
     <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
@@ -1056,13 +1067,73 @@
   </div>
 </section>
 
+    <!-- MODULE 35 -->
+    <section class="module wide" id="m35">
+  <p class="m-eyebrow">Araç Kiti · Tekrar</p>
+  <h2 class="m-title">Aktif Tekrar Modu</h2>
+  <p class="m-intro">Kurstaki tüm "Hızlı Kontrol" ve quiz sorularını tek bir kart destesinde topluyor. Kartları çevir, bildiklerini işaretle — bilmediklerin deste içinde daha sık karşına çıkar. Bu, kursun "hafıza tazeleme" hedefine en çok hizmet eden modül.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 36 -->
+    <section class="module wide" id="m36">
+  <p class="m-eyebrow">Araç Kiti · İş Arama</p>
+  <h2 class="m-title">CV Hazırlığı</h2>
+  <p class="m-intro">Mülakata çağrılmadan önce geçilmesi gereken ilk eşik CV. PM/PE CV'sinde işe yarayan tek yapı: <strong>aksiyon fiili + görev + ölçülebilir sonuç.</strong></p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 37 -->
+    <section class="module wide" id="m37">
+  <p class="m-eyebrow">Araç Kiti · İş Arama</p>
+  <h2 class="m-title">LinkedIn Profil Optimizasyonu</h2>
+  <p class="m-intro">İşe alım uzmanlarının çoğu mülakattan önce LinkedIn'e bakar. Profil, CV'nin özeti değil — arama sonuçlarında bulunmanı sağlayan ayrı bir araç.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 38 -->
+    <section class="module wide" id="m38">
+  <p class="m-eyebrow">Araç Kiti · İş Arama · Bu kurstan başka hiçbir yerde yok</p>
+  <h2 class="m-title">💰 Maaş Pazarlığı</h2>
+  <p class="m-intro">Teklif geldiğinde susup kabul etmek en sık yapılan hata — ve maaş pazarlığı çoğu PM/PE hazırlık kaynağında hiç işlenmez. Pazarlık bir çatışma değil, bir müzakere sürecidir.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
+    <!-- MODULE 39 -->
+    <section class="module wide" id="m39">
+  <p class="m-eyebrow">Araç Kiti · PMP Tarzı Pratik</p>
+  <h2 class="m-title">PMP Tarzı Soru Bankası (45 Soru)</h2>
+  <p class="m-intro">Modül 19'daki referans kartının üzerine, PMP sınavına benzer senaryo bazlı formatta ("PM olarak bir sonraki adımın ne olur?") 45 soruluk pratik set — People, Process ve Business Environment alanlarına dağılmış. Not: PMI'ın resmi sınav sorularıyla ilgisi yoktur, PMI mantığını yansıtan bağımsız pratik sorulardır. PMI mantığı: her zaman önceden planlanmış olan seçeneği işaretle.</p>
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <p class="lock-text">Bu modülün tamamı (örnekler, tablolar, mülakat soruları ve hızlı kontrol testi) tam sürümde açılıyor.</p>
+    <a class="lock-cta" href="#" onclick="window.open(PURCHASE_URL,'_blank');return false;">Tam Sürümü Satın Al</a>
+  </div>
+</section>
+
   </main>
 </div>
 
 <script>
 (function(){
   var KEY = 'pe-crash-course-progress';
-  var total = 35;
+  var total = 40;
   function load(){
     try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ return {}; }
   }
@@ -1216,6 +1287,54 @@ var QUIZ_DATA = {
     {q:"RAG nedir?", opts:["Red / Amber / Green durum göstergesi","Bir yazılım aracı","Bir risk türü","Bir sözleşme tipi"], a:0},
     {q:"Genel durumu kırmızı olan bir proje için tipik olarak ne istenir?", opts:["Recovery plan (kurtarma planı)","Hiçbir şey","Projenin her zaman iptali","Ödül"], a:0},
     {q:"PMO dashboard tipik olarak hangi sıklıkla incelenir?", opts:["Aylık portföy incelemesinde","Hiç","Günlük","Yılda bir"], a:0}
+  ]
+,
+  m39: [
+    {q:"A team member reports a risk that was not previously identified. What should the PM do first?", opts:["Add it to the risk register and perform qualitative analysis", "Immediately notify the sponsor", "Ignore it since it wasn't planned", "Escalate to the CCB directly"], a:0},
+    {q:"Two team members have a disagreement affecting team morale. What should the PM do first?", opts:["Meet with them separately to understand each perspective", "Immediately replace one team member", "Escalate to HR without investigation", "Ignore it, it will resolve itself"], a:0},
+    {q:"A new PM wants to build trust with an existing team. What is the best first step?", opts:["Listen, learn existing processes, and deliver early small wins", "Immediately change all existing processes", "Assign all decisions to the most senior member", "Avoid team meetings until fully ready"], a:0},
+    {q:"A team member consistently misses deadlines but won't explain why. What should the PM do?", opts:["Hold a private 1:1 to understand root cause before acting", "Publicly reprimand them in the next meeting", "Reassign all their tasks immediately", "Report them to the sponsor without discussion"], a:0},
+    {q:"During a retrospective, the team blames one member for a failure. What is the PM's best action?", opts:["Refocus the discussion on process improvement, not blame", "Agree with the team and document the blame", "End the retrospective immediately", "Privately fire the blamed member"], a:0},
+    {q:"A stakeholder with high power and low interest starts asking for frequent detailed updates. What should the PM do?", opts:["Re-assess their stakeholder quadrant and adjust the engagement plan", "Ignore the requests since they were low interest", "Give them the same reports as high-interest stakeholders automatically", "Escalate to the sponsor immediately"], a:0},
+    {q:"A functional manager is reluctant to release a resource promised to the project. What should the PM do first?", opts:["Discuss directly with the functional manager to negotiate priorities", "Escalate to senior management immediately", "Proceed without the resource silently", "File a formal complaint"], a:0},
+    {q:"A virtual team spans multiple time zones and communication is breaking down. What is the best response?", opts:["Establish a documented communication plan with agreed core hours", "Require everyone to work the PM's time zone", "Stop virtual meetings entirely", "Let each member choose their own reporting method"], a:0},
+    {q:"A team member proposes an idea that conflicts with the PM's original plan but may improve outcomes. What should the PM do?", opts:["Evaluate the idea objectively before deciding", "Reject it to maintain the original plan", "Approve it immediately without review", "Ignore it since it wasn't requested"], a:0},
+    {q:"Conflict between two departments is stalling a cross-functional task. What conflict resolution approach best fits a time-critical situation?", opts:["Forcing/directing, then revisit collaboratively later if time allows", "Withdrawing from the conflict entirely", "Smoothing over the issue without resolution", "Waiting indefinitely for natural resolution"], a:0},
+    {q:"A team member says they feel micromanaged. What should the PM do?", opts:["Ask for specifics and adjust the level of oversight where appropriate", "Dismiss the concern since deadlines matter more", "Immediately stop all check-ins", "Reassign the team member"], a:0},
+    {q:"An underperforming team member reveals they are not properly trained on a tool. What is the best next step?", opts:["Arrange training or mentoring before further evaluation", "Remove them from the project immediately", "Ignore the gap and expect self-learning", "Reassign their exact tasks to another member permanently"], a:0},
+    {q:"A key stakeholder is consistently unavailable for reviews, delaying approvals. What should the PM do?", opts:["Identify a backup approver and formalize it in the stakeholder plan", "Proceed without any approval", "Cancel the project", "Wait indefinitely without escalating"], a:0},
+    {q:"The project team is demotivated after a difficult milestone slip. What is the PM's best next action?", opts:["Acknowledge the setback transparently and reset focus on next milestones", "Blame the team publicly for the slip", "Ignore morale and push harder on the schedule", "Cancel the next milestone entirely"], a:0},
+    {q:"A PM discovers a team member is being harassed by another team member. What is the correct first action?", opts:["Escalate to HR following the organization's formal process", "Handle it informally without documentation", "Ignore it unless it affects deadlines", "Move both team members without explanation"], a:0},
+    {q:"Emotional intelligence is most useful to a PM in which situation?", opts:["Navigating team conflict and stakeholder relationships", "Calculating the critical path", "Preparing the cost baseline", "Writing the WBS dictionary"], a:0},
+    {q:"A team is co-located but collaboration is still poor. What should the PM investigate first?", opts:["Team norms, roles clarity, and psychological safety", "Whether the office has enough desks", "The color scheme of the shared workspace", "Whether to move the team offsite"], a:0},
+    {q:"During onboarding, a new team member seems unclear on their responsibilities. What document should the PM point them to?", opts:["The RACI matrix / responsibility assignment matrix", "The risk register", "The procurement plan", "The lessons learned register"], a:0},
+    {q:"A PM notices two senior engineers competing rather than collaborating, slowing decisions. What should the PM do?", opts:["Clarify shared goals and facilitate a joint working session", "Assign a single winner publicly", "Remove both from the project", "Let them resolve it without any facilitation"], a:0},
+    {q:"A key stakeholder requests a scope change not in the project charter. What is the PM's best first action?", opts:["Assess the impact on scope, schedule, cost, and risk before proceeding", "Approve it since the stakeholder is powerful", "Reject it immediately", "Implement it and inform the sponsor later"], a:0},
+    {q:"The project's CPI is 0.85 and SPI is 1.05. What does this indicate?", opts:["The project is over budget but ahead of schedule", "The project is under budget and behind schedule", "The project is on budget and on schedule", "The project should be cancelled"], a:0},
+    {q:"A supplier informs you a critical component will be delayed. The task is not on the critical path. What should the PM do?", opts:["Monitor the float and update the risk register", "Immediately fast-track the entire schedule", "Escalate to the sponsor as a crisis", "Terminate the supplier contract"], a:0},
+    {q:"What is the primary purpose of a lessons learned session during closing?", opts:["To document what worked and what didn't for future projects", "To assign blame for issues", "To calculate the final budget variance only", "To terminate remaining contracts"], a:0},
+    {q:"A change request is submitted mid-project. Who has the authority to approve it?", opts:["The Change Control Board (CCB), per the change management plan", "The project manager alone, always", "The customer, without any analysis", "Whoever raised the request"], a:0},
+    {q:"A risk rated 'low probability, low impact' has just occurred. What is the correct next step?", opts:["Treat it as an issue, log it, and execute a response", "Ignore it since it was rated low priority", "Re-plan the entire project", "Immediately close the project"], a:0},
+    {q:"Two projects in the portfolio need the same specialized engineer at the same time. What should the PM do first?", opts:["Escalate to the PMO or resource manager for prioritization", "Take the resource without informing the other PM", "Delay both projects indefinitely", "Hire an unqualified replacement"], a:0},
+    {q:"What is the correct sequence when a scope change is proposed?", opts:["Assess impact, submit change request, get CCB approval, update baseline", "Update baseline, then assess impact", "Implement first, document later", "Reject automatically without analysis"], a:0},
+    {q:"A project's actual cost (AC) is 90K, earned value (EV) is 70K. What does CPI = EV/AC tell the PM?", opts:["The project is spending more than the value of work completed", "The project is exactly on budget", "The project is ahead of schedule", "The budget should be increased automatically"], a:0},
+    {q:"Which document is created first in the project life cycle?", opts:["Project Charter", "Risk Register", "WBS", "Schedule baseline"], a:0},
+    {q:"A vendor delivers a component that fails quality inspection. What is the PM's next step per the quality management plan?", opts:["Log a nonconformance and follow the defined corrective action process", "Accept the component to avoid delay", "Terminate the vendor contract immediately", "Ignore the failure if the schedule is tight"], a:0},
+    {q:"What is the purpose of a Work Breakdown Structure (WBS)?", opts:["Decompose scope into manageable, deliverable-oriented work packages", "List project risks", "Track team member availability", "Define contract payment terms"], a:0},
+    {q:"During monitoring & controlling, actual progress is behind the baseline. What should the PM do first?", opts:["Perform variance analysis to determine root cause", "Immediately request more budget", "Fire the team lead", "Cancel the affected work package"], a:0},
+    {q:"What best describes 'crashing' a schedule?", opts:["Adding resources to critical path activities to shorten duration, usually increasing cost", "Removing scope to save time", "Running activities in parallel without added cost", "Increasing float on non-critical tasks"], a:0},
+    {q:"What best describes 'fast tracking' a schedule?", opts:["Performing activities in parallel that were originally sequential", "Adding more resources to critical tasks", "Reducing scope to save time", "Extending the project deadline"], a:0},
+    {q:"A procurement contract type where the seller bears most cost risk is:", opts:["Firm-Fixed-Price (FFP)", "Cost-Plus-Fixed-Fee (CPFF)", "Time and Materials (T&M)", "Cost-Plus-Percentage-of-Cost"], a:0},
+    {q:"What is the primary input needed to calculate Earned Value (EV)?", opts:["Percent complete of work multiplied by its planned budget", "Total hours logged by the team", "Actual cost incurred to date", "Number of open risks"], a:0},
+    {q:"A quality audit finds the team is not following the documented process. What should the PM do?", opts:["Address the root cause and reinforce the process with the team", "Ignore it if output quality still seems fine", "Discontinue the quality management plan", "Blame the quality auditor"], a:0},
+    {q:"What is the main purpose of a RACI matrix?", opts:["Clarify roles: who is Responsible, Accountable, Consulted, Informed", "Track project costs", "Define the schedule critical path", "List all identified risks"], a:0},
+    {q:"A hybrid project combines predictive and agile approaches. What is a common reason to do this?", opts:["Fixed-scope hardware components combined with iterative software development", "It always makes the project faster", "It removes the need for a project charter", "It eliminates the need for stakeholder engagement"], a:0},
+    {q:"Configuration Management primarily ensures:", opts:["Traceability between what was designed, tested, and delivered", "The project stays under budget", "The team remains motivated", "Stakeholders are kept informed"], a:0},
+    {q:"A project no longer aligns with the organization's updated strategic goals. What should the PM do?", opts:["Escalate to the sponsor to reassess the project's business case", "Continue as planned regardless of strategy changes", "Unilaterally cancel the project", "Ignore strategy and focus only on deliverables"], a:0},
+    {q:"What is the main purpose of a business case?", opts:["Justify the investment by outlining benefits, costs, and risk of the project", "List all project stakeholders", "Define the WBS", "Serve as the communication plan"], a:0},
+    {q:"Benefits realization is best measured:", opts:["Both during and after project closure, against defined success criteria", "Only at project kickoff", "Only by the project sponsor's opinion", "It cannot be measured"], a:0},
+    {q:"A new regulation is introduced that affects the project's compliance requirements. What should the PM do first?", opts:["Assess the impact on scope, cost, and schedule, then update the plan", "Ignore it until an audit occurs", "Cancel the project immediately", "Delegate the decision entirely to legal without PM involvement"], a:0},
+    {q:"Organizational Process Assets (OPAs) are best described as:", opts:["Existing templates, historical data, and lessons learned the PM can reuse", "The company's financial statements", "The current year's strategic plan only", "A synonym for the project charter"], a:0}
   ]
 };
 
@@ -1441,7 +1560,7 @@ function copyPromptEl(btn, id){
 function computeProgressPct(){
   try {
     var state = JSON.parse(localStorage.getItem('pe-crash-course-progress')) || {};
-    var done = 0, total = 35;
+    var done = 0, total = 40;
     Object.keys(state).forEach(function(k){ if(state[k]) done++; });
     return Math.round((done / total) * 100);
   } catch(e){ return 0; }
@@ -1490,7 +1609,7 @@ function certGenerate(){
   ctx.font = '19px Georgia, serif';
   ctx.fillStyle = '#4C6270';
   ctx.fillText('Project Manager / Project Engineer Crash Course', w / 2, 330);
-  ctx.fillText(currentLang === 'en' ? 'has successfully completed all 35 modules and the toolkit.' : '35 modülü ve araç kitini başarıyla tamamlamıştır.', w / 2, 360);
+  ctx.fillText(currentLang === 'en' ? 'has successfully completed all 40 modules and the toolkit.' : '40 modülü ve araç kitini başarıyla tamamlamıştır.', w / 2, 360);
   var d = new Date();
   ctx.font = '14px Consolas, monospace';
   ctx.fillStyle = '#7C8D96';
@@ -1609,6 +1728,100 @@ if(langToggleBtn){
   langToggleBtn.addEventListener('click', function(){ applyLang(currentLang === 'tr' ? 'en' : 'tr'); });
 }
 applyLang(currentLang);
+
+/* ---------- 11. Flashcard / Active Recall (module 35) ---------- */
+(function(){
+  var box = document.getElementById('fc-box');
+  if(!box) return;
+  var STATE_KEY = 'pe-crash-course-flashcards';
+  function loadState(){ try { return JSON.parse(localStorage.getItem(STATE_KEY)) || {}; } catch(e){ return {}; } }
+  function saveState(s){ localStorage.setItem(STATE_KEY, JSON.stringify(s)); }
+  var fcState = loadState();
+
+  function buildDeck(){
+    var deck = [];
+    document.querySelectorAll('.qa-item').forEach(function(item){
+      var q = item.querySelector('.q'), a = item.querySelector('.a');
+      if(q && a) deck.push({ q: q.textContent, a: a.textContent });
+    });
+    Object.keys(QUIZ_DATA).forEach(function(modId){
+      if(modId === 'm39') return;
+      QUIZ_DATA[modId].forEach(function(item){
+        deck.push({ q: item.q, a: item.opts[item.a] });
+      });
+    });
+    return deck;
+  }
+  var deck = buildDeck();
+  var order = [];
+  var idx = 0;
+  var correctCount = 0;
+
+  function cardKey(card){ return card.q.slice(0,60); }
+  function weightOf(card){
+    var b = fcState[cardKey(card)] || 0;
+    return Math.max(1, 4 - b);
+  }
+  function buildOrder(){
+    var pool = [];
+    deck.forEach(function(card, i){
+      var w = weightOf(card);
+      for(var k=0;k<w;k++) pool.push(i);
+    });
+    for(var i = pool.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i+1));
+      var t = pool[i]; pool[i] = pool[j]; pool[j] = t;
+    }
+    return pool;
+  }
+  function fcEscape(s){
+    return String(s).replace(/[&<>]/g, function(ch){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[ch]; });
+  }
+  function render(){
+    var host = document.getElementById('fc-card');
+    if(idx >= order.length){
+      host.innerHTML = '<div class="case"><span class="case-tag">Bitti</span><p>Desteyi tamamladın. "Tekrara Başla" ile yeniden karıştırabilirsin.</p></div>';
+      return;
+    }
+    var card = deck[order[idx]];
+    host.innerHTML =
+      '<div class="case"><span class="case-tag">Soru ' + (idx+1) + ' / ' + order.length + '</span><p id="fc-q"></p></div>' +
+      '<div id="fc-a-wrap" style="display:none;"><div class="case"><span class="case-tag">Cevap</span><p id="fc-a"></p></div>' +
+      '<button type="button" class="btn" id="fc-know">Biliyordum \u2713</button> ' +
+      '<button type="button" class="btn secondary" id="fc-dontknow">Tekrar G\u00f6ster \u2717</button></div>' +
+      '<div id="fc-reveal-wrap"><button type="button" class="btn secondary" id="fc-reveal">Cevab\u0131 G\u00f6ster</button></div>';
+    document.getElementById('fc-q').textContent = card.q;
+    document.getElementById('fc-a').textContent = card.a;
+    document.getElementById('fc-reveal').addEventListener('click', function(){
+      document.getElementById('fc-a-wrap').style.display = 'block';
+      document.getElementById('fc-reveal-wrap').style.display = 'none';
+    });
+    document.getElementById('fc-know').addEventListener('click', function(){
+      var k = cardKey(card);
+      fcState[k] = Math.min(4, (fcState[k]||0) + 1);
+      saveState(fcState);
+      correctCount++;
+      document.getElementById('fc-correct').textContent = correctCount;
+      idx++; render();
+    });
+    document.getElementById('fc-dontknow').addEventListener('click', function(){
+      var k = cardKey(card);
+      fcState[k] = 0;
+      saveState(fcState);
+      idx++; render();
+    });
+  }
+
+  var totalEl = document.getElementById('fc-total');
+  if(totalEl) totalEl.textContent = deck.length;
+  var startBtn = document.getElementById('fc-start');
+  if(startBtn) startBtn.addEventListener('click', function(){
+    order = buildOrder();
+    idx = 0; correctCount = 0;
+    document.getElementById('fc-correct').textContent = 0;
+    render();
+  });
+})();
 
 /* ---------- 10. PWA registration (no-op unless hosted over HTTP(S)) ---------- */
 if('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')){
