@@ -1,0 +1,187 @@
+<meta charset="UTF-8">
+<title>Prompt / Context / Loop Engineering — Landing Page</title>
+<style>
+  :root{
+    --bg:#F2F2F0; --surface:#FFFFFF; --surface-2:#E6E6E1; --border:#D2D2CC;
+    --ink:#26282C; --ink-soft:#5B5E64; --ink-faint:#83868D;
+    --accent:#4A4E57; --accent-ink:#1C1D20; --accent-soft:#E4E4E0;
+    --flag:#B4832A; --flag-soft:#F6E7C7;
+    --shadow: 0 1px 2px rgba(38,40,44,0.06), 0 20px 44px -22px rgba(38,40,44,0.30);
+    --font-display:'Bahnschrift','SF Compact Condensed','Segoe UI Semibold','Roboto Condensed','Arial Narrow',sans-serif;
+    --font-body: Charter,'Iowan Old Style',Georgia,'Noto Serif',serif;
+    --font-mono:'SF Mono','Cascadia Code',Consolas,'JetBrains Mono',monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#131416; --surface:#1B1C1F; --surface-2:#212225; --border:#333438;
+      --ink:#EDEDEC; --ink-soft:#B4B5B9; --ink-faint:#7A7B7F;
+      --accent:#9EA2AC; --accent-ink:#F2F2F0; --accent-soft:#26272B;
+      --flag:#E0B255; --flag-soft:#2E2610; }
+  }
+  *{box-sizing:border-box;} body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;} img{max-width:100%;display:block;}
+  .section{max-width:1080px;margin:0 auto;padding:0 28px;}
+  .hero{background:var(--accent-ink);color:#F2F2F0;padding:74px 0 60px;position:relative;overflow:hidden;}
+  .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(560px 420px at 82% -8%,rgba(180,131,42,0.24),transparent 65%);pointer-events:none;}
+  .hero .section{position:relative;}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#E5C27C;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+  .eyebrow::before{content:"";width:26px;height:1px;background:#E5C27C;}
+  .hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(30px,4vw,46px);line-height:1.12;margin:0 0 18px;max-width:20ch;}
+  .hero h1 em{font-style:normal;color:#E5C27C;}
+  .hero p.lede{font-size:17px;color:#D4D4D2;max-width:54ch;margin:0 0 30px;}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{font-family:var(--font-display);font-weight:700;font-size:14.5px;padding:14px 26px;border-radius:8px;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+  .btn-primary{background:#E5C27C;color:#2E2308;}
+  .btn-ghost{background:transparent;color:#F2F2F0;border:1px solid rgba(242,242,240,0.35);}
+  .kpi-row{max-width:1080px;margin:44px auto 0;padding:24px 28px 0;display:flex;flex-wrap:wrap;gap:22px 34px;border-top:1px solid rgba(242,242,240,0.16);}
+  .kpi-mini{display:flex;flex-direction:column;}
+  .kpi-mini i{font-style:normal;font-size:18px;margin-bottom:4px;}
+  .kpi-mini b{font-family:var(--font-display);font-weight:700;font-size:24px;color:#E5C27C;}
+  .kpi-mini span{font-family:var(--font-mono);font-size:10.5px;color:#C6C6C2;}
+
+  .highlight{padding:56px 0 10px;}
+  .highlight-card{background:var(--accent);color:#F7F7F6;border-radius:16px;padding:34px 36px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
+  .highlight-card .hc-icon{font-size:34px;}
+  .highlight-card h3{font-family:var(--font-display);font-weight:700;font-size:19px;margin:0 0 6px;}
+  .highlight-card p{margin:0;color:#E2E2DF;font-size:14.5px;max-width:60ch;}
+
+  .who{padding:56px 0 10px;}
+  .who h2{font-family:var(--font-display);font-weight:700;font-size:clamp(22px,2.4vw,27px);margin:0 0 26px;max-width:32ch;}
+  .oc-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px 28px;}
+  @media (max-width:700px){.oc-list{grid-template-columns:1fr;}}
+  .oc-list li{font-size:15px;color:var(--ink-soft);display:flex;gap:10px;align-items:flex-start;}
+  .oc-check{flex:0 0 auto;width:20px;height:20px;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+
+  .split{padding:56px 0;}
+  .stack{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:30px 28px;box-shadow:var(--shadow);}
+  .stack h3{font-family:var(--font-display);font-weight:700;font-size:19px;margin:0 0 18px;}
+  .stack ul{margin:0;padding:0;list-style:none;}
+  .stack li{font-size:14.5px;color:var(--ink-soft);padding:9px 0;border-top:1px solid var(--border);}
+  .stack li:first-child{border-top:none;}
+  .stack li strong{color:var(--ink);font-weight:600;}
+
+  .feature-strip{padding:10px 0 60px;}
+  .fs-row{display:flex;flex-wrap:wrap;gap:10px;}
+  .fs-chip{font-family:var(--font-mono);font-size:12.5px;color:var(--ink-soft);background:var(--surface-2);border:1px solid var(--border);padding:8px 14px;border-radius:20px;}
+  .fs-chip b{color:var(--ink);font-weight:600;}
+
+  .pricing{padding:56px 0;}
+  .price-card{background:var(--accent-ink);color:#F2F2F0;border-radius:16px;padding:40px 38px;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;}
+  .price-card h2{font-family:var(--font-display);font-weight:700;font-size:clamp(22px,2.4vw,27px);margin:0 0 8px;}
+  .price-card .pc-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:#E5C27C;text-transform:uppercase;margin:0 0 10px;}
+  .price-card p{color:#C6C6C2;margin:0;font-size:14px;}
+  .amt{font-family:var(--font-display);font-weight:700;font-size:36px;color:#fff;}
+  .amt small{display:block;font-family:var(--font-mono);font-size:11px;font-weight:400;color:#C6C6C2;margin-top:2px;}
+
+  .faq{padding:10px 0 70px;}
+  .faq h2{font-family:var(--font-display);font-weight:700;font-size:21px;margin:0 0 22px;}
+  .faq-item{border-bottom:1px solid var(--border);padding:16px 0;}
+  .faq-item:first-child{border-top:1px solid var(--border);}
+  .faq-q{font-family:var(--font-display);font-weight:700;font-size:15px;margin:0 0 6px;}
+  .faq-a{font-size:14px;color:var(--ink-soft);margin:0;max-width:60ch;}
+
+  footer{border-top:1px solid var(--border);padding:24px 28px 50px;font-size:12px;color:var(--ink-faint);text-align:center;}
+  footer .fn{font-family:var(--font-display);font-weight:700;font-size:13px;color:var(--ink-soft);margin:0 0 4px;}
+</style>
+
+<section class="hero">
+  <div class="section">
+    <p class="eyebrow">For Project Managers &amp; Engineers · AI Literacy Kit</p>
+    <h1>Stop guessing with AI. <em>Start engineering it.</em></h1>
+    <p class="lede">Prompt engineering, context engineering, and loop engineering — explained from zero, for people who've never touched an API, with a working starter prompt library included.</p>
+    <div class="cta-row">
+      <button class="btn btn-primary">👀 Preview Module 1 Free</button>
+      <button class="btn btn-ghost">800 ₺ · Buy Now</button>
+    </div>
+  </div>
+  <div class="kpi-row">
+    <div class="kpi-mini"><i>🎯</i><b>8</b><span>modules</span></div>
+    <div class="kpi-mini"><i>🧭</i><b>5</b><span>step prompt framework</span></div>
+    <div class="kpi-mini"><i>🔁</i><b>1</b><span>loop engineering method</span></div>
+    <div class="kpi-mini"><i>📚</i><b>5</b><span>ready-to-use starter prompts</span></div>
+  </div>
+</section>
+
+<section class="highlight">
+  <div class="section">
+    <div class="highlight-card">
+      <span class="hc-icon">🧠</span>
+      <div>
+        <h3>Not just prompts — a real engineering mental model</h3>
+        <p>Most "prompt tips" content stops at wording tricks. This kit goes further: how to engineer the context an AI model sees, and how to design feedback loops that improve results over time — written for PMs and engineers, not developers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="who">
+  <div class="section">
+    <h2>From zero to practical AI use — no coding required.</h2>
+    <ul class="oc-list">
+      <li><span class="oc-check">✓</span> Understand what an LLM actually does, in plain terms</li>
+      <li><span class="oc-check">✓</span> Apply the 5-step prompt framework to real PM tasks</li>
+      <li><span class="oc-check">✓</span> Engineer context — RAG, memory, what the model should "see"</li>
+      <li><span class="oc-check">✓</span> Design feedback loops with AI agents and tool calling</li>
+      <li><span class="oc-check">✓</span> Adapt 5 ready-to-use prompts from the starter library</li>
+    </ul>
+  </div>
+</section>
+
+<section class="split">
+  <div class="section">
+    <div class="stack">
+      <h3>Inside Prompt / Context / Loop Engineering (8 Modules)</h3>
+      <ul>
+        <li>🤖 <strong>Before You Start: What Is an LLM?</strong> — the mental model, without the jargon</li>
+        <li>✍️ <strong>Prompt Engineering Basics</strong> — structure, clarity, common mistakes</li>
+        <li>🧭 <strong>The 5-Step Prompt Framework</strong> — a repeatable method for any task</li>
+        <li>📋 <strong>Prompt Engineering for PMs</strong> — status reports, risk logs, stakeholder updates</li>
+        <li>🗂️ <strong>Context Engineering</strong> — RAG, memory, and what actually belongs in a prompt</li>
+        <li>🔁 <strong>Loop Engineering</strong> — designing feedback loops and AI agents</li>
+        <li>📊 <strong>Loop Engineering: Metrics &amp; Tools</strong> — LangChain, MLflow, and how to evaluate output</li>
+        <li>📚 <strong>Starter Prompt Library</strong> — 5 prompts, beginner to intermediate, copy &amp; adapt</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="feature-strip">
+  <div class="section fs-row">
+    <span class="fs-chip"><b>Search &amp; filter</b></span>
+    <span class="fs-chip"><b>Per-module notes</b></span>
+    <span class="fs-chip"><b>Progress tracking</b> — stored locally, nothing sent to a server</span>
+    <span class="fs-chip"><b>No install</b> — single HTML file, works fully offline</span>
+    <span class="fs-chip"><b>English</b> — written for a global audience</span>
+  </div>
+</section>
+
+<section class="pricing">
+  <div class="section">
+    <div class="price-card">
+      <div>
+        <p class="pc-eyebrow">One-time purchase · Digital download</p>
+        <h2>Prompt / Context / Loop Engineering</h2>
+        <p>8 modules · 5-step prompt framework · starter prompt library · on Etsy &amp; Shopier</p>
+      </div>
+      <div>
+        <div class="amt">800 ₺<small>tax included</small></div>
+        <button class="btn btn-primary" style="margin-top:12px;">Buy Now →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="section">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><p class="faq-q">Do I need a technical or developer background?</p><p class="faq-a">No. This kit is written for project managers and engineers who use AI tools day to day, not for developers. No coding is required.</p></div>
+    <div class="faq-item"><p class="faq-q">Do I need to buy the Core Course first?</p><p class="faq-a">No, this is a standalone product. It's built for anyone who wants to get practical with AI, regardless of which other kits they own.</p></div>
+    <div class="faq-item"><p class="faq-q">Is there a Turkish version?</p><p class="faq-a">Not yet — this kit currently ships in English only. A Turkish version is planned as part of a future series-wide update.</p></div>
+    <div class="faq-item"><p class="faq-q">Are refunds available?</p><p class="faq-a">Because this is a digital product delivered instantly, purchases are final. You can review the free preview module before buying.</p></div>
+  </div>
+</section>
+
+<footer>
+  <p class="fn">Kübra Terzioğlu — Founder, PMP, PSM I</p>
+  <p style="margin:0 0 16px;">13+ years in project &amp; risk management · Türksat 6A</p>
+  Prompt / Context / Loop Engineering · Built with demo content and sample data.
+</footer>

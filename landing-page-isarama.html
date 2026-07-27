@@ -1,0 +1,184 @@
+<meta charset="UTF-8">
+<title>PM/PE İş Arama Paketi — Landing Page</title>
+<style>
+  :root{
+    --bg:#F3F7F3; --surface:#FFFFFF; --surface-2:#E6EFE7; --border:#C9DCCB;
+    --ink:#182420; --ink-soft:#4C6153; --ink-faint:#7E9384;
+    --accent:#3F7A52; --accent-ink:#1F4A2E; --accent-soft:#DCEBE1;
+    --flag:#B4832A; --flag-soft:#F6E7C7;
+    --shadow: 0 1px 2px rgba(24,36,32,0.06), 0 20px 44px -22px rgba(24,36,32,0.30);
+    --font-display:'Bahnschrift','SF Compact Condensed','Segoe UI Semibold','Roboto Condensed','Arial Narrow',sans-serif;
+    --font-body: Charter,'Iowan Old Style',Georgia,'Noto Serif',serif;
+    --font-mono:'SF Mono','Cascadia Code',Consolas,'JetBrains Mono',monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0F1712; --surface:#17211B; --surface-2:#1D2921; --border:#2C3D30;
+      --ink:#E7F0E9; --ink-soft:#A9C2AF; --ink-faint:#6F8A76;
+      --accent:#79BC93; --accent-ink:#EAF7EE; --accent-soft:#1C3323;
+      --flag:#E0B255; --flag-soft:#2E2610; }
+  }
+  *{box-sizing:border-box;} body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;} img{max-width:100%;display:block;}
+  .section{max-width:1080px;margin:0 auto;padding:0 28px;}
+  .hero{background:var(--accent);color:#F0FAF3;padding:74px 0 60px;position:relative;overflow:hidden;}
+  .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(560px 420px at 82% -8%,rgba(217,169,77,0.22),transparent 65%);pointer-events:none;}
+  .hero .section{position:relative;}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#F0DFA8;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+  .eyebrow::before{content:"";width:26px;height:1px;background:#F0DFA8;}
+  .hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(30px,4vw,46px);line-height:1.12;margin:0 0 18px;max-width:20ch;}
+  .hero h1 em{font-style:normal;color:#F0DFA8;}
+  .hero p.lede{font-size:17px;color:#DCF0E1;max-width:52ch;margin:0 0 30px;}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{font-family:var(--font-display);font-weight:700;font-size:14.5px;padding:14px 26px;border-radius:8px;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+  .btn-primary{background:#F0DFA8;color:#2E2308;}
+  .btn-ghost{background:transparent;color:#F0FAF3;border:1px solid rgba(240,250,243,0.35);}
+  .kpi-row{max-width:1080px;margin:44px auto 0;padding:24px 28px 0;display:flex;flex-wrap:wrap;gap:22px 34px;border-top:1px solid rgba(240,250,243,0.16);}
+  .kpi-mini{display:flex;flex-direction:column;}
+  .kpi-mini i{font-style:normal;font-size:18px;margin-bottom:4px;}
+  .kpi-mini b{font-family:var(--font-display);font-weight:700;font-size:24px;color:#F0DFA8;}
+  .kpi-mini span{font-family:var(--font-mono);font-size:10.5px;color:#C9E6D1;}
+
+  .highlight{padding:56px 0 10px;}
+  .highlight-card{background:var(--accent-ink);color:#F0FAF3;border-radius:16px;padding:34px 36px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
+  .highlight-card .hc-icon{font-size:34px;}
+  .highlight-card h3{font-family:var(--font-display);font-weight:700;font-size:19px;margin:0 0 6px;}
+  .highlight-card p{margin:0;color:#CDE4D4;font-size:14.5px;max-width:60ch;}
+
+  .who{padding:56px 0 10px;}
+  .who h2{font-family:var(--font-display);font-weight:700;font-size:clamp(22px,2.4vw,27px);margin:0 0 26px;max-width:32ch;}
+  .oc-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px 28px;}
+  @media (max-width:700px){.oc-list{grid-template-columns:1fr;}}
+  .oc-list li{font-size:15px;color:var(--ink-soft);display:flex;gap:10px;align-items:flex-start;}
+  .oc-check{flex:0 0 auto;width:20px;height:20px;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+
+  .split{padding:56px 0;}
+  .stack{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:30px 28px;box-shadow:var(--shadow);}
+  .stack h3{font-family:var(--font-display);font-weight:700;font-size:19px;margin:0 0 18px;}
+  .stack ul{margin:0;padding:0;list-style:none;}
+  .stack li{font-size:14.5px;color:var(--ink-soft);padding:9px 0;border-top:1px solid var(--border);}
+  .stack li:first-child{border-top:none;}
+  .stack li strong{color:var(--ink);font-weight:600;}
+
+  .feature-strip{padding:10px 0 60px;}
+  .fs-row{display:flex;flex-wrap:wrap;gap:10px;}
+  .fs-chip{font-family:var(--font-mono);font-size:12.5px;color:var(--ink-soft);background:var(--surface-2);border:1px solid var(--border);padding:8px 14px;border-radius:20px;}
+  .fs-chip b{color:var(--ink);font-weight:600;}
+
+  .pricing{padding:56px 0;}
+  .price-card{background:var(--accent-ink);color:#F0FAF3;border-radius:16px;padding:40px 38px;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;}
+  .price-card h2{font-family:var(--font-display);font-weight:700;font-size:clamp(22px,2.4vw,27px);margin:0 0 8px;}
+  .price-card .pc-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:#F0DFA8;text-transform:uppercase;margin:0 0 10px;}
+  .price-card p{color:#CDE4D4;margin:0;font-size:14px;}
+  .amt{font-family:var(--font-display);font-weight:700;font-size:36px;color:#fff;}
+  .amt small{display:block;font-family:var(--font-mono);font-size:11px;font-weight:400;color:#CDE4D4;margin-top:2px;}
+
+  .faq{padding:10px 0 70px;}
+  .faq h2{font-family:var(--font-display);font-weight:700;font-size:21px;margin:0 0 22px;}
+  .faq-item{border-bottom:1px solid var(--border);padding:16px 0;}
+  .faq-item:first-child{border-top:1px solid var(--border);}
+  .faq-q{font-family:var(--font-display);font-weight:700;font-size:15px;margin:0 0 6px;}
+  .faq-a{font-size:14px;color:var(--ink-soft);margin:0;max-width:60ch;}
+
+  footer{border-top:1px solid var(--border);padding:24px 28px 50px;font-size:12px;color:var(--ink-faint);text-align:center;}
+  footer .fn{font-family:var(--font-display);font-weight:700;font-size:13px;color:var(--ink-soft);margin:0 0 4px;}
+</style>
+
+<section class="hero">
+  <div class="section">
+    <p class="eyebrow">Savunma &amp; IT Sektörleri İçin · İş Arama Paketi</p>
+    <h1>Mülakatı geçtin. <em>Şimdi teklifi kapat.</em></h1>
+    <p class="lede">CV'ni ATS'den geçir, LinkedIn'de bulunur ol, ve — hiçbir PM/PE kursunda anlatılmayan konuda — teklif geldiğinde maaşını nasıl pazarlığa açacağını öğren. Artı: tüm kursu tarayan flashcard sistemi ve 45 soruluk PMP tarzı pratik bankası.</p>
+    <div class="cta-row">
+      <button class="btn btn-primary">👀 İlk Modülü Ücretsiz Gör</button>
+      <button class="btn btn-ghost">700 ₺ · Satın Al</button>
+    </div>
+  </div>
+  <div class="kpi-row">
+    <div class="kpi-mini"><i>🎯</i><b>5</b><span>modül</span></div>
+    <div class="kpi-mini"><i>🔁</i><b>54</b><span>flashcard kartı</span></div>
+    <div class="kpi-mini"><i>📝</i><b>45</b><span>PMP tarzı soru</span></div>
+    <div class="kpi-mini"><i>💰</i><b>1</b><span>maaş pazarlığı rehberi</span></div>
+  </div>
+</section>
+
+<section class="highlight">
+  <div class="section">
+    <div class="highlight-card">
+      <span class="hc-icon">💰</span>
+      <div>
+        <h3>Maaş Pazarlığı — bu konuyu işleyen başka bir PM/PE kursu yok</h3>
+        <p>Teklif geldiğinde susup kabul etmek en sık yapılan hata. BATNA, karşı teklif verme zamanlaması, maaş dışı pazarlık kalemleri (sign-on bonus, eğitim bütçesi, uzaktan çalışma) — İngilizce örnek diyalogla.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="who">
+  <div class="section">
+    <h2>Mülakat bitti — asıl fark burada başlıyor.</h2>
+    <ul class="oc-list">
+      <li><span class="oc-check">✓</span> CV'nin ATS'den geçme ihtimalini artır</li>
+      <li><span class="oc-check">✓</span> LinkedIn profilini işe alım uzmanlarının bulacağı şekilde optimize et</li>
+      <li><span class="oc-check">✓</span> Teklif geldiğinde ne söyleyeceğini önceden bil</li>
+      <li><span class="oc-check">✓</span> Tüm kursu tarayan flashcard sistemiyle bilgini kalıcı hale getir</li>
+      <li><span class="oc-check">✓</span> 45 soruluk PMP tarzı bankayla kendini sınırsız test et</li>
+    </ul>
+  </div>
+</section>
+
+<section class="split">
+  <div class="section">
+    <div class="stack">
+      <h3>İş Arama Paketi içinde (5 Modül)</h3>
+      <ul>
+        <li>🔁 <strong>Aktif Tekrar / Flashcard modu</strong> — spaced-repetition ile aralıklı tekrar</li>
+        <li>📄 <strong>CV Hazırlığı</strong> — ATS uyumlu bullet formülü, before/after örnekleri</li>
+        <li>💼 <strong>LinkedIn Profil Optimizasyonu</strong> — 7 zorunlu öğe checklist'i</li>
+        <li>💰 <strong>Maaş Pazarlığı</strong> — BATNA, karşı teklif, İngilizce örnek diyalog</li>
+        <li>📝 <strong>45 soruluk PMP tarzı pratik soru bankası</strong> — People / Process / Business Environment</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="feature-strip">
+  <div class="section fs-row">
+    <span class="fs-chip"><b>Arama &amp; filtreleme</b></span>
+    <span class="fs-chip"><b>Modül bazlı not alma</b></span>
+    <span class="fs-chip"><b>İlerleme takibi</b> — localStorage, sunucuya veri gitmez</span>
+    <span class="fs-chip"><b>Kurulum yok</b> — tek HTML dosyası, offline çalışır</span>
+    <span class="fs-chip"><b>TR + EN</b> — iki dilde de mevcut</span>
+  </div>
+</section>
+
+<section class="pricing">
+  <div class="section">
+    <div class="price-card">
+      <div>
+        <p class="pc-eyebrow">Tek seferlik · Dijital indirme</p>
+        <h2>PM / Project Engineer — İş Arama Paketi</h2>
+        <p>5 modül · maaş pazarlığı · 45 soruluk PMP tarzı bankası · Etsy &amp; Shopier'de satışta</p>
+      </div>
+      <div>
+        <div class="amt">700 ₺<small>KDV dahil</small></div>
+        <button class="btn btn-primary" style="margin-top:12px;">Satın Al →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="section">
+    <h2>Sık sorulanlar</h2>
+    <div class="faq-item"><p class="faq-q">Çekirdek Kurs'u almadan bunu alabilir miyim?</p><p class="faq-a">Evet, bağımsız bir üründür. Zaten mülakat sürecindeysen veya teklif aşamasındaysan doğrudan bununla başlayabilirsin.</p></div>
+    <div class="faq-item"><p class="faq-q">Maaş pazarlığı modülü gerçekten farklı mı?</p><p class="faq-a">Evet — piyasadaki PM/PE mülakat kurslarının hiçbiri bu konuyu işlemiyor. BATNA, karşı teklif zamanlaması ve maaş dışı pazarlık kalemlerini gerçek bir İngilizce diyalog örneğiyle anlatıyoruz.</p></div>
+    <div class="faq-item"><p class="faq-q">İngilizce sürümü var mı?</p><p class="faq-a">Evet, bu paket hem Türkçe hem İngilizce olarak sunuluyor.</p></div>
+    <div class="faq-item"><p class="faq-q">İade var mı?</p><p class="faq-a">Dijital ürün olduğu ve anında teslim edildiği için satın alma sonrası iade yapılmıyor. Ücretsiz önizleme sürümünü satın almadan önce inceleyebilirsin.</p></div>
+  </div>
+</section>
+
+<footer>
+  <p class="fn">Kübra Terzioğlu — Founder, PMP, PSM I</p>
+  <p style="margin:0 0 16px;">13+ yıl proje/risk yönetimi deneyimi · Türksat 6A</p>
+  PM / Project Engineer Crash Course — İş Arama Paketi · Demo içerik ve örnek verilerle hazırlanmıştır.
+</footer>

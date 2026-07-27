@@ -1,0 +1,173 @@
+<meta charset="UTF-8">
+<title>PM/PE Araç Kiti — Landing Page</title>
+<style>
+  :root{
+    --bg:#F4F1F7; --surface:#FFFFFF; --surface-2:#EBE4F2; --border:#D6C9E4;
+    --ink:#241B2E; --ink-soft:#5B4B6B; --ink-faint:#8C7B9C;
+    --accent:#5B3A8C; --accent-ink:#3A2359; --accent-soft:#E7DCF4;
+    --flag:#B4832A; --flag-soft:#F6E7C7;
+    --good:#3F7A52; --good-soft:#DCEBE1;
+    --shadow: 0 1px 2px rgba(36,27,46,0.06), 0 20px 44px -22px rgba(36,27,46,0.30);
+    --font-display:'Bahnschrift','SF Compact Condensed','Segoe UI Semibold','Roboto Condensed','Arial Narrow',sans-serif;
+    --font-body: Charter,'Iowan Old Style',Georgia,'Noto Serif',serif;
+    --font-mono:'SF Mono','Cascadia Code',Consolas,'JetBrains Mono',monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#170F1F; --surface:#211729; --surface-2:#2A1D33; --border:#3D2A4A;
+      --ink:#F1E9F7; --ink-soft:#C2AED4; --ink-faint:#8A729B;
+      --accent:#B592E0; --accent-ink:#F4EBFC; --accent-soft:#2E1F3B;
+      --flag:#E0B255; --flag-soft:#2E2610; --good:#79BC93; --good-soft:#16261C; }
+  }
+  *{box-sizing:border-box;} body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;} img{max-width:100%;display:block;}
+  .section{max-width:1080px;margin:0 auto;padding:0 28px;}
+  .hero{background:var(--accent);color:#F7F0FC;padding:74px 0 60px;position:relative;overflow:hidden;}
+  .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(560px 420px at 82% -8%,rgba(217,169,77,0.22),transparent 65%);pointer-events:none;}
+  .hero .section{position:relative;}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#E8CE85;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+  .eyebrow::before{content:"";width:26px;height:1px;background:#E8CE85;}
+  .hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(30px,4vw,46px);line-height:1.12;margin:0 0 18px;max-width:18ch;}
+  .hero h1 em{font-style:normal;color:#F0DFA8;}
+  .hero p.lede{font-size:17px;color:#E3D3F2;max-width:52ch;margin:0 0 30px;}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{font-family:var(--font-display);font-weight:700;font-size:14.5px;padding:14px 26px;border-radius:8px;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+  .btn-primary{background:#E8CE85;color:#2E2308;}
+  .btn-ghost{background:transparent;color:#F7F0FC;border:1px solid rgba(247,240,252,0.35);}
+  .kpi-row{max-width:1080px;margin:44px auto 0;padding:24px 28px 0;display:flex;flex-wrap:wrap;gap:22px 34px;border-top:1px solid rgba(247,240,252,0.16);}
+  .kpi-mini{display:flex;flex-direction:column;}
+  .kpi-mini i{font-style:normal;font-size:18px;margin-bottom:4px;}
+  .kpi-mini b{font-family:var(--font-display);font-weight:700;font-size:24px;color:#F0DFA8;}
+  .kpi-mini span{font-family:var(--font-mono);font-size:10.5px;color:#D9C4EC;}
+
+  .who{padding:60px 0 10px;}
+  .who h2{font-family:var(--font-display);font-weight:700;font-size:clamp(22px,2.4vw,27px);margin:0 0 26px;max-width:32ch;}
+  .oc-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px 28px;}
+  @media (max-width:700px){.oc-list{grid-template-columns:1fr;}}
+  .oc-list li{font-size:15px;color:var(--ink-soft);display:flex;gap:10px;align-items:flex-start;}
+  .oc-check{flex:0 0 auto;width:20px;height:20px;border-radius:50%;background:var(--good-soft);color:var(--good);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+
+  .split{padding:56px 0;}
+  .stack{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:30px 28px;box-shadow:var(--shadow);}
+  .stack h3{font-family:var(--font-display);font-weight:700;font-size:19px;margin:0 0 18px;}
+  .stack ul{margin:0;padding:0;list-style:none;}
+  .stack li{font-size:14.5px;color:var(--ink-soft);padding:9px 0;border-top:1px solid var(--border);}
+  .stack li:first-child{border-top:none;}
+  .stack li strong{color:var(--ink);font-weight:600;}
+
+  .feature-strip{padding:10px 0 60px;}
+  .fs-row{display:flex;flex-wrap:wrap;gap:10px;}
+  .fs-chip{font-family:var(--font-mono);font-size:12.5px;color:var(--ink-soft);background:var(--surface-2);border:1px solid var(--border);padding:8px 14px;border-radius:20px;}
+  .fs-chip b{color:var(--ink);font-weight:600;}
+
+  .pricing{padding:56px 0;}
+  .price-card{background:var(--accent);color:#F7F0FC;border-radius:16px;padding:40px 38px;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;}
+  .price-card h2{font-family:var(--font-display);font-weight:700;font-size:clamp(22px,2.4vw,27px);margin:0 0 8px;}
+  .price-card .pc-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:#E8CE85;text-transform:uppercase;margin:0 0 10px;}
+  .price-card p{color:#E3D3F2;margin:0;font-size:14px;}
+  .amt{font-family:var(--font-display);font-weight:700;font-size:36px;color:#fff;}
+  .amt small{display:block;font-family:var(--font-mono);font-size:11px;font-weight:400;color:#E3D3F2;margin-top:2px;}
+
+  .faq{padding:10px 0 70px;}
+  .faq h2{font-family:var(--font-display);font-weight:700;font-size:21px;margin:0 0 22px;}
+  .faq-item{border-bottom:1px solid var(--border);padding:16px 0;}
+  .faq-item:first-child{border-top:1px solid var(--border);}
+  .faq-q{font-family:var(--font-display);font-weight:700;font-size:15px;margin:0 0 6px;}
+  .faq-a{font-size:14px;color:var(--ink-soft);margin:0;max-width:60ch;}
+
+  footer{border-top:1px solid var(--border);padding:24px 28px 50px;font-size:12px;color:var(--ink-faint);text-align:center;}
+  footer .fn{font-family:var(--font-display);font-weight:700;font-size:13px;color:var(--ink-soft);margin:0 0 4px;}
+</style>
+
+<section class="hero">
+  <div class="section">
+    <p class="eyebrow">Savunma &amp; IT Sektörleri İçin · Araç Kiti</p>
+    <h1>Excel açmadan <em>CPI ve Critical Path'i</em> dakikalar içinde hesapla.</h1>
+    <p class="lede">Hazır şablon ve çalışan hesaplayıcılarla saatlerce süren işleri dakikalara indir. 16 modül: PMP referans kartı, RAID/risk/stakeholder şablonları, çalışan Critical Path ve Earned Value hesaplayıcıları, 18 AI prompt, tamamlama sertifikası.</p>
+    <div class="cta-row">
+      <button class="btn btn-primary">👀 İlk 3 Modülü Ücretsiz Gör</button>
+      <button class="btn btn-ghost">1.000 ₺ · Satın Al</button>
+    </div>
+  </div>
+  <div class="kpi-row">
+    <div class="kpi-mini"><i>🧰</i><b>16</b><span>modül</span></div>
+    <div class="kpi-mini"><i>🧮</i><b>2</b><span>çalışan hesaplayıcı</span></div>
+    <div class="kpi-mini"><i>📝</i><b>18</b><span>AI prompt</span></div>
+    <div class="kpi-mini"><i>📋</i><b>7</b><span>hazır şablon</span></div>
+    <div class="kpi-mini"><i>🎓</i><b>1</b><span>tamamlama sertifikası</span></div>
+  </div>
+</section>
+
+<section class="who">
+  <div class="section">
+    <h2>Şablonu sıfırdan kurmakla uğraşma, doldur kullan.</h2>
+    <ul class="oc-list">
+      <li><span class="oc-check">✓</span> Critical Path'i elle hesaplamak yerine görev/süre gir, sonucu al</li>
+      <li><span class="oc-check">✓</span> CPI/SPI/EAC hesaplamalarını saniyeler içinde yap</li>
+      <li><span class="oc-check">✓</span> RAID log, risk register, stakeholder matrisini sıfırdan tasarlama</li>
+      <li><span class="oc-check">✓</span> Mülakatta PMP formüllerini ezbersiz, referans kartıyla tazele</li>
+      <li><span class="oc-check">✓</span> Statü raporu/e-posta taslaklarını 18 hazır AI prompt'la hızlandır</li>
+      <li><span class="oc-check">✓</span> Jira, Scrum, Kanban, SAFe'yi tek cheat sheet'te tut</li>
+    </ul>
+  </div>
+</section>
+
+<section class="split">
+  <div class="section">
+    <div class="stack">
+      <h3>Araç Kiti içinde (16 Modül)</h3>
+      <ul>
+        <li>PMP Hızlı Referans Kartı, Mülakat: Liderlik &amp; Kriz soru bankası</li>
+        <li>Procurement şablonları, RAID log, Risk Register (5×5), Stakeholder matrisi</li>
+        <li>İletişim planı, WBS şablonu, Cost Baseline &amp; S-Curve</li>
+        <li>🧮 <strong>Çalışan Critical Path hesaplayıcısı</strong> — görev/süre/öncül gir, ES/EF/LS/LF/float otomatik</li>
+        <li>📈 <strong>Çalışan Earned Value hesaplayıcısı</strong> — PV/EV/AC gir, CPI/SPI/EAC/VAC otomatik</li>
+        <li>18 hazır AI prompt kütüphanesi</li>
+        <li>Jira, Scrum, Kanban &amp; SAFe cheat sheet</li>
+        <li>PMO Dashboard şablonu</li>
+        <li>🎓 Tamamlayınca indirilebilir sertifika</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="feature-strip">
+  <div class="section fs-row">
+    <span class="fs-chip"><b>Arama &amp; filtreleme</b></span>
+    <span class="fs-chip"><b>Modül bazlı not alma</b></span>
+    <span class="fs-chip"><b>İlerleme takibi</b> — localStorage, sunucuya veri gitmez</span>
+    <span class="fs-chip"><b>Modül bazlı quiz</b> — otomatik puanlanır</span>
+    <span class="fs-chip"><b>Kurulum yok</b> — tek HTML dosyası, offline çalışır</span>
+  </div>
+</section>
+
+<section class="pricing">
+  <div class="section">
+    <div class="price-card">
+      <div>
+        <p class="pc-eyebrow">Tek seferlik · Dijital indirme</p>
+        <h2>PM / Project Engineer — Araç Kiti</h2>
+        <p>16 modül · 2 çalışan hesaplayıcı · 18 AI prompt · Etsy &amp; Shopier'de satışta</p>
+      </div>
+      <div>
+        <div class="amt">1.000 ₺<small>KDV dahil</small></div>
+        <button class="btn btn-primary" style="margin-top:12px;">Satın Al →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="section">
+    <h2>Sık sorulanlar</h2>
+    <div class="faq-item"><p class="faq-q">Çekirdek Kurs'u almadan bunu alabilir miyim?</p><p class="faq-a">Evet, bağımsız bir üründür — ama ikisi birlikte daha bütün bir hazırlık sağlar.</p></div>
+    <div class="faq-item"><p class="faq-q">Hesaplayıcılar gerçekten çalışıyor mu?</p><p class="faq-a">Evet — kendi verinle gerçek zamanlı hesaplama yapan, tarayıcı tabanlı çalışan araçlardır, statik ekran görüntüsü değil.</p></div>
+    <div class="faq-item"><p class="faq-q">İnternet bağlantısı gerekiyor mu?</p><p class="faq-a">Hayır, indirdikten sonra tamamen çevrimdışı çalışır.</p></div>
+    <div class="faq-item"><p class="faq-q">İade var mı?</p><p class="faq-a">Dijital ürün olduğu ve anında teslim edildiği için satın alma sonrası iade yapılmıyor. Ücretsiz önizleme sürümünü satın almadan önce inceleyebilirsin.</p></div>
+  </div>
+</section>
+
+<footer>
+  <p class="fn">Kübra Terzioğlu — Founder, PMP, PSM I</p>
+  <p style="margin:0 0 16px;">13+ yıl proje/risk yönetimi deneyimi · Türksat 6A</p>
+  PM / Project Engineer Crash Course — Araç Kiti · Demo içerik ve örnek verilerle hazırlanmıştır.
+</footer>

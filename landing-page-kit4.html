@@ -1,0 +1,185 @@
+<meta charset="UTF-8">
+<title>n8n + Excel + Power BI Kiti — Landing Page</title>
+<style>
+  :root{
+    --bg:#F1F4F7; --surface:#FFFFFF; --surface-2:#E4EAF0; --border:#CCD6E4;
+    --ink:#16202B; --ink-soft:#48586B; --ink-faint:#7C8CA0;
+    --accent:#1F4E8C; --accent-ink:#12345E; --accent-soft:#DCE6F4;
+    --flag:#B4832A; --flag-soft:#F6E7C7;
+    --shadow: 0 1px 2px rgba(22,32,43,0.06), 0 20px 44px -22px rgba(22,32,43,0.30);
+    --font-display:'Bahnschrift','SF Compact Condensed','Segoe UI Semibold','Roboto Condensed','Arial Narrow',sans-serif;
+    --font-body: Charter,'Iowan Old Style',Georgia,'Noto Serif',serif;
+    --font-mono:'SF Mono','Cascadia Code',Consolas,'JetBrains Mono',monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0D141C; --surface:#151E29; --surface-2:#1A2432; --border:#28374A;
+      --ink:#E7EDF5; --ink-soft:#A6B6C9; --ink-faint:#6E7F94;
+      --accent:#6C9CDA; --accent-ink:#EAF1FB; --accent-soft:#182A40;
+      --flag:#E0B255; --flag-soft:#2E2610; }
+  }
+  *{box-sizing:border-box;} body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;} img{max-width:100%;display:block;}
+  .section{max-width:1080px;margin:0 auto;padding:0 28px;}
+  .hero{background:var(--accent);color:#EEF4FC;padding:74px 0 60px;position:relative;overflow:hidden;}
+  .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(560px 420px at 82% -8%,rgba(217,169,77,0.20),transparent 65%);pointer-events:none;}
+  .hero .section{position:relative;}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#F0DFA8;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+  .eyebrow::before{content:"";width:26px;height:1px;background:#F0DFA8;}
+  .hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(30px,4vw,46px);line-height:1.12;margin:0 0 18px;max-width:20ch;}
+  .hero h1 em{font-style:normal;color:#F0DFA8;}
+  .hero p.lede{font-size:17px;color:#D7E4F5;max-width:54ch;margin:0 0 30px;}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{font-family:var(--font-display);font-weight:700;font-size:14.5px;padding:14px 26px;border-radius:8px;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+  .btn-primary{background:#F0DFA8;color:#2E2308;}
+  .btn-ghost{background:transparent;color:#EEF4FC;border:1px solid rgba(238,244,252,0.35);}
+  .kpi-row{max-width:1080px;margin:44px auto 0;padding:24px 28px 0;display:flex;flex-wrap:wrap;gap:22px 34px;border-top:1px solid rgba(238,244,252,0.16);}
+  .kpi-mini{display:flex;flex-direction:column;}
+  .kpi-mini i{font-style:normal;font-size:18px;margin-bottom:4px;}
+  .kpi-mini b{font-family:var(--font-display);font-weight:700;font-size:24px;color:#F0DFA8;}
+  .kpi-mini span{font-family:var(--font-mono);font-size:10.5px;color:#C7DAF0;}
+
+  .highlight{padding:56px 0 10px;}
+  .highlight-card{background:var(--accent-ink);color:#EEF4FC;border-radius:16px;padding:34px 36px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
+  .highlight-card .hc-icon{font-size:34px;}
+  .highlight-card h3{font-family:var(--font-display);font-weight:700;font-size:19px;margin:0 0 6px;}
+  .highlight-card p{margin:0;color:#C7DAF0;font-size:14.5px;max-width:60ch;}
+
+  .who{padding:56px 0 10px;}
+  .who h2{font-family:var(--font-display);font-weight:700;font-size:clamp(22px,2.4vw,27px);margin:0 0 26px;max-width:32ch;}
+  .oc-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px 28px;}
+  @media (max-width:700px){.oc-list{grid-template-columns:1fr;}}
+  .oc-list li{font-size:15px;color:var(--ink-soft);display:flex;gap:10px;align-items:flex-start;}
+  .oc-check{flex:0 0 auto;width:20px;height:20px;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+
+  .split{padding:56px 0;}
+  .stack{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:30px 28px;box-shadow:var(--shadow);}
+  .stack h3{font-family:var(--font-display);font-weight:700;font-size:19px;margin:0 0 18px;}
+  .stack ul{margin:0;padding:0;list-style:none;}
+  .stack li{font-size:14.5px;color:var(--ink-soft);padding:9px 0;border-top:1px solid var(--border);}
+  .stack li:first-child{border-top:none;}
+  .stack li strong{color:var(--ink);font-weight:600;}
+
+  .feature-strip{padding:10px 0 60px;}
+  .fs-row{display:flex;flex-wrap:wrap;gap:10px;}
+  .fs-chip{font-family:var(--font-mono);font-size:12.5px;color:var(--ink-soft);background:var(--surface-2);border:1px solid var(--border);padding:8px 14px;border-radius:20px;}
+  .fs-chip b{color:var(--ink);font-weight:600;}
+
+  .pricing{padding:56px 0;}
+  .price-card{background:var(--accent-ink);color:#EEF4FC;border-radius:16px;padding:40px 38px;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;}
+  .price-card h2{font-family:var(--font-display);font-weight:700;font-size:clamp(22px,2.4vw,27px);margin:0 0 8px;}
+  .price-card .pc-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:#F0DFA8;text-transform:uppercase;margin:0 0 10px;}
+  .price-card p{color:#C7DAF0;margin:0;font-size:14px;}
+  .amt{font-family:var(--font-display);font-weight:700;font-size:36px;color:#fff;}
+  .amt small{display:block;font-family:var(--font-mono);font-size:11px;font-weight:400;color:#C7DAF0;margin-top:2px;}
+
+  .faq{padding:10px 0 70px;}
+  .faq h2{font-family:var(--font-display);font-weight:700;font-size:21px;margin:0 0 22px;}
+  .faq-item{border-bottom:1px solid var(--border);padding:16px 0;}
+  .faq-item:first-child{border-top:1px solid var(--border);}
+  .faq-q{font-family:var(--font-display);font-weight:700;font-size:15px;margin:0 0 6px;}
+  .faq-a{font-size:14px;color:var(--ink-soft);margin:0;max-width:60ch;}
+
+  footer{border-top:1px solid var(--border);padding:24px 28px 50px;font-size:12px;color:var(--ink-faint);text-align:center;}
+  footer .fn{font-family:var(--font-display);font-weight:700;font-size:13px;color:var(--ink-soft);margin:0 0 4px;}
+</style>
+
+<section class="hero">
+  <div class="section">
+    <p class="eyebrow">n8n · Excel · Power BI · Otomasyon Kiti</p>
+    <h1>Raporu elle değil, <em>otomasyon</em> yazsın.</h1>
+    <p class="lede">n8n ile tekrarlayan PM işlerini otomatikleştir, formülleri çalışan orijinal bir Excel proje planı kullan, ve Power BI'da gerçek bir proje dashboard'u kur — hiç otomasyon kurmamış olanlar için sıfırdan anlatım.</p>
+    <div class="cta-row">
+      <button class="btn btn-primary">👀 İlk Modülü Ücretsiz Gör</button>
+      <button class="btn btn-ghost">800 ₺ · Satın Al</button>
+    </div>
+  </div>
+  <div class="kpi-row">
+    <div class="kpi-mini"><i>🎯</i><b>6</b><span>modül</span></div>
+    <div class="kpi-mini"><i>🔧</i><b>1</b><span>n8n workflow mimarisi</span></div>
+    <div class="kpi-mini"><i>📊</i><b>1</b><span>orijinal Excel proje planı</span></div>
+    <div class="kpi-mini"><i>📈</i><b>1</b><span>Power BI dashboard kurulumu</span></div>
+  </div>
+</section>
+
+<section class="highlight">
+  <div class="section">
+    <div class="highlight-card">
+      <span class="hc-icon">🔧</span>
+      <div>
+        <h3>PM'ler için otomasyon — geliştirici jargonu yok</h3>
+        <p>n8n'i sıfırdan kurup Webhook → Google Sheets gibi gerçek PM senaryolarına bağlıyoruz. Kod bilmene gerek yok; ROI'sini gösteren gerçek vaka analizleriyle anlatılıyor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="who">
+  <div class="section">
+    <h2>Excel'de saatler harcamayı bırak.</h2>
+    <ul class="oc-list">
+      <li><span class="oc-check">✓</span> n8n ile tekrarlayan PM işlerini otomatikleştir</li>
+      <li><span class="oc-check">✓</span> Gerçek vaka analizleriyle otomasyonun ROI'sini gör</li>
+      <li><span class="oc-check">✓</span> Formülleri çalışan orijinal Excel proje planını kullan</li>
+      <li><span class="oc-check">✓</span> Power BI'da proje dashboard'u kur</li>
+      <li><span class="oc-check">✓</span> Otomasyon güvenliği ve iyi pratiklerini öğren</li>
+    </ul>
+  </div>
+</section>
+
+<section class="split">
+  <div class="section">
+    <div class="stack">
+      <h3>n8n + Excel + Power BI Kiti içinde (6 Modül)</h3>
+      <ul>
+        <li>🔧 <strong>n8n Nedir?</strong> — kurulum ve temel mimari, sıfırdan</li>
+        <li>⚙️ <strong>PM Otomasyon Senaryoları</strong> — Webhook, Google Sheets ve gerçek PM iş akışları</li>
+        <li>📈 <strong>Gerçek Vaka Analizleri &amp; ROI</strong> — otomasyonun zaman/maliyet kazancı nasıl ölçülür</li>
+        <li>🔒 <strong>Güvenlik &amp; İyi Pratikler</strong> — webhook güvenliği, erişim kontrolü, hata yönetimi</li>
+        <li>📊 <strong>Excel Proje Planı Şablonu</strong> — orijinal, formülleri çalışan Gantt ve bütçe takibi</li>
+        <li>📉 <strong>Power BI ile Proje Dashboard'u</strong> — kurulumdan yayınlamaya adım adım</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="feature-strip">
+  <div class="section fs-row">
+    <span class="fs-chip"><b>Arama &amp; filtreleme</b></span>
+    <span class="fs-chip"><b>Modül bazlı not alma</b></span>
+    <span class="fs-chip"><b>İlerleme takibi</b> — localStorage, sunucuya veri gitmez</span>
+    <span class="fs-chip"><b>Kurulum yok</b> — tek HTML dosyası, offline çalışır</span>
+    <span class="fs-chip"><b>Orijinal Excel şablonu dahil</b></span>
+  </div>
+</section>
+
+<section class="pricing">
+  <div class="section">
+    <div class="price-card">
+      <div>
+        <p class="pc-eyebrow">Tek seferlik · Dijital indirme</p>
+        <h2>n8n + Excel + Power BI Kiti</h2>
+        <p>6 modül · orijinal Excel şablonu · Power BI dashboard rehberi · Etsy &amp; Shopier'de satışta</p>
+      </div>
+      <div>
+        <div class="amt">800 ₺<small>KDV dahil</small></div>
+        <button class="btn btn-primary" style="margin-top:12px;">Satın Al →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="section">
+    <h2>Sık sorulanlar</h2>
+    <div class="faq-item"><p class="faq-q">n8n hakkında hiçbir şey bilmiyorum, anlar mıyım?</p><p class="faq-a">Evet — kurs n8n'in ne olduğunu anlatarak, kurulumdan başlıyor. Geliştirici geçmişi gerekmiyor.</p></div>
+    <div class="faq-item"><p class="faq-q">Çekirdek Kurs'u almadan bunu alabilir miyim?</p><p class="faq-a">Evet, bağımsız bir üründür. Otomasyon ve raporlamaya doğrudan odaklanmak isteyenler için tasarlandı.</p></div>
+    <div class="faq-item"><p class="faq-q">İngilizce sürümü var mı?</p><p class="faq-a">Şu an içerik Türkçe. İngilizce sürüm, seri genelinde planlanan bir güncellemeyle ayrıca eklenecek.</p></div>
+    <div class="faq-item"><p class="faq-q">İade var mı?</p><p class="faq-a">Dijital ürün olduğu ve anında teslim edildiği için satın alma sonrası iade yapılmıyor. Ücretsiz önizleme sürümünü satın almadan önce inceleyebilirsin.</p></div>
+  </div>
+</section>
+
+<footer>
+  <p class="fn">Kübra Terzioğlu — Founder, PMP, PSM I</p>
+  <p style="margin:0 0 16px;">13+ yıl proje/risk yönetimi deneyimi · Türksat 6A</p>
+  n8n + Excel + Power BI Kiti · Demo içerik ve örnek verilerle hazırlanmıştır.
+</footer>
