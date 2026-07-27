@@ -1,30 +1,29 @@
-Project Manager / Project Engineer Crash Course + Toolkit
+Project Manager / Project Engineer Crash Course Serisi
 
-Savunma ve IT sektörlerinde çalışan PM/PE'ler için hafıza tazeleme kursu ve interaktif araç kiti. Tek bir HTML dosyası — kurulum gerektirmez, tarayıcıda çalışır.
+Savunma ve IT sektörlerinde çalışan PM/PE'ler için 5 ayrı dijital paket. Her paket tek bir HTML dosyası — kurulum gerektirmez, tarayıcıda çalışır, offline kullanılabilir. Ayrı ayrı satın alınabilir, ya da hepsi birden indirimli alınabilir.
 
-Ücretsiz önizleme (kilitli, Modül 0-1 ve Araç Kiti'nden 3 modül açık): https://kbrterz.github.io/crash-course-max/Project-Engineer-Crash-Course-PREVIEW.html
+Ücretsiz önizleme (kilitli, ilk modüller açık): https://kbrterz.github.io/crash-course-max/Project-Engineer-Crash-Course-PREVIEW.html
 
-Tam sürüm Etsy ve Shopier'de dijital indirme olarak satılıyor.
+## Paketler
 
-İçerik
-19 çekirdek modül (0–18): Proje yaşam döngüsü, WBS/Critical Path, Risk & Değişiklik Yönetimi, Procurement (RFI/RFP/RFQ), Bütçe & Maliyet Kontrolü, Standartlar & Uyumluluk, Mülakat Stratejisi, AI araçları, EVM (CPI/SPI), Excel & MS Project uygulamaları, Configuration Management, Jira ve daha fazlası.
-16 araç kiti modülü (19–34): PMP hızlı referans kartı, procurement şablonları, RAID log, risk register (5×5), stakeholder matrisi, iletişim planı, WBS şablonu, cost baseline/S-curve, çalışan Critical Path hesaplayıcısı, çalışan Earned Value hesaplayıcısı, 18 hazır AI prompt, Jira & Scrum cheat sheet, PMO dashboard şablonu ve tamamlama sertifikası.
-6 modüllük iş arama paketi (35–40): tüm kursu tarayan aktif tekrar/flashcard modu, CV hazırlığı, LinkedIn profil optimizasyonu, maaş pazarlığı, 45 soruluk PMP pratik soru bankası, PM'ler için n8n otomasyonu.
-Özellikler
-İlerleme takibi (tarayıcıda localStorage, sunucuya veri gönderilmez)
-Her modülde not alma
-Modül bazlı otomatik puanlanan quizler
-%100 ilerlemede açılan indirilebilir PNG sertifika
-Modüllerde arama/filtreleme
-Sağ altta PM Mentor: kurs içeriğinde çevrimdışı anahtar kelime araması yapan bir yardımcı (gerçek zamanlı üretken bir AI değildir)
-TR/EN arayüz dili anahtarı (modül içerikleri Türkçe kalır)
-PWA desteği (manifest.json, sw.js) — gerçek "yükle / çevrimdışı çalış" davranışı için dosyaların bir web sunucusunda (bu repo gibi GitHub Pages üzerinden) barındırılması gerekir
-Kullanım
+| Paket | İçerik | Fiyat | Sayfa |
+|---|---|---|---|
+| Çekirdek Kurs | 19 modül — proje yaşam döngüsü, WBS/Critical Path, Risk/RAID, Procurement, Bütçe & EVM, standartlar, mülakat stratejisi, 50 soruluk TR/EN mülakat bankası | 900 ₺ | [Önizle](https://kbrterz.github.io/crash-course-max/landing-page-cekirdek.html) |
+| Araç Kiti | 16 modül — PMP hızlı referans, çalışan Critical Path & Earned Value hesaplayıcıları, RAID/risk/stakeholder şablonları, 18 AI prompt, tamamlama sertifikası | 1.000 ₺ | [Önizle](https://kbrterz.github.io/crash-course-max/landing-page-arackiti.html) |
+| İş Arama Paketi | 5 modül — aktif tekrar/flashcard, ATS uyumlu CV, LinkedIn optimizasyonu, maaş pazarlığı, 45 soruluk PMP tarzı soru bankası | 700 ₺ | [Önizle](https://kbrterz.github.io/crash-course-max/landing-page-isarama.html) |
+| n8n + Excel + Power BI Kiti | 6 modül — n8n otomasyon mimarisi, gerçek vaka analizleri/ROI, güvenlik pratikleri, orijinal Excel proje planı, Power BI dashboard kurulumu | 800 ₺ | [Önizle](https://kbrterz.github.io/crash-course-max/landing-page-kit4.html) |
+| Prompt / Context / Loop Engineering (EN) | 8 modül — prompt/context/loop engineering, 5 adımlı prompt framework, AI agent & tool calling, starter prompt library | 800 ₺ | [Önizle](https://kbrterz.github.io/crash-course-max/landing-page-kit5.html) |
 
-Sayfayı aç, sol menüden bir modül seç. İlerlemeni işaretle, notlarını tut, quizleri çöz, hesaplayıcıları kendi verinle dene.
+Bu 5 paketi ister ayrı ayrı, isterseniz bir bütün paket olarak alabilirsiniz. Paket olarak alırsanız 700 ₺ daha avantajlı olur (ayrı ayrı toplam 4.200 ₺ yerine 3.500 ₺).
 
-Teknik notlar
+[5'i birden — 3.500 ₺](https://kbrterz.github.io/crash-course-max/bundle-landing.html)
+
+## Özellikler (tüm paketlerde ortak)
+
+İlerleme takibi (tarayıcıda localStorage, sunucuya veri gönderilmez) · her modülde not alma · modül bazlı arama/filtreleme · kurulum yok, tek HTML dosyası, offline çalışır.
+
+## Teknik notlar
 
 Saf HTML/CSS/JavaScript — build adımı, framework veya bağımlılık yok. Tüm veriler yalnızca ziyaretçinin kendi tarayıcısında tutulur.
 
-Bu içerik ticari bir üründür (Etsy / Shopier). Kaynak kodu bu repoda görülebilir olsa da içerik izinsiz çoğaltılamaz veya yeniden satılamaz.
+Bu içerik ticari bir üründür (Etsy / Shopier). Önizleme ve tanıtım sayfalarının kaynak kodu bu repoda görülebilir olsa da tam içerik izinsiz çoğaltılamaz veya yeniden satılamaz.

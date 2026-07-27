@@ -23,7 +23,7 @@
   .hero{background:var(--accent);color:#F0FAF3;padding:74px 0 60px;position:relative;overflow:hidden;}
   .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(560px 420px at 82% -8%,rgba(217,169,77,0.22),transparent 65%);pointer-events:none;}
   .hero .section{position:relative;}
-  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#F0DFA8;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+  .eyebrow{font-family:var(--font-mono);font-size:16px;letter-spacing:.1em;text-transform:uppercase;color:#F0DFA8;margin:0 0 18px;display:flex;align-items:center;gap:10px;font-weight:700;}
   .eyebrow::before{content:"";width:26px;height:1px;background:#F0DFA8;}
   .hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(30px,4vw,46px);line-height:1.12;margin:0 0 18px;max-width:20ch;}
   .hero h1 em{font-style:normal;color:#F0DFA8;}
@@ -43,6 +43,12 @@
   .highlight-card .hc-icon{font-size:34px;}
   .highlight-card h3{font-family:var(--font-display);font-weight:700;font-size:19px;margin:0 0 6px;}
   .highlight-card p{margin:0;color:#CDE4D4;font-size:14.5px;max-width:60ch;}
+
+  .pain{padding:48px 0 10px;}
+  .pain-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:14px 28px;}
+  @media (max-width:700px){.pain-list{grid-template-columns:1fr;}}
+  .pain-list li{font-size:16px;color:var(--ink);display:flex;gap:12px;align-items:flex-start;font-family:var(--font-display);font-weight:600;}
+  .pain-check{flex:0 0 auto;width:22px;height:22px;border-radius:6px;background:var(--accent);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px;}
 
   .who{padding:56px 0 10px;}
   .who h2{font-family:var(--font-display);font-weight:700;font-size:clamp(22px,2.4vw,27px);margin:0 0 26px;max-width:32ch;}
@@ -101,13 +107,25 @@
   </div>
 </section>
 
+<section class="pain">
+  <div class="section">
+    <ul class="pain-list">
+      <li><span class="pain-check">✓</span> Savunma sanayii mülakatlarına hazırlan</li>
+      <li><span class="pain-check">✓</span> İngilizce PM mülakatında zorlanma</li>
+      <li><span class="pain-check">✓</span> CPI &amp; SPI hesaplamalarını ezberleme</li>
+      <li><span class="pain-check">✓</span> CV'nin ATS'den geçsin</li>
+      <li><span class="pain-check">✓</span> LinkedIn profilin recruiter tarafından bulunsun</li>
+    </ul>
+  </div>
+</section>
+
 <section class="highlight">
   <div class="section">
     <div class="highlight-card">
       <span class="hc-icon">💰</span>
       <div>
         <h3>Maaş Pazarlığı — bu konuyu işleyen başka bir PM/PE kursu yok</h3>
-        <p>Teklif geldiğinde susup kabul etmek en sık yapılan hata. BATNA, karşı teklif verme zamanlaması, maaş dışı pazarlık kalemleri (sign-on bonus, eğitim bütçesi, uzaktan çalışma) — İngilizce örnek diyalogla.</p>
+        <p>Teklif geldiğinde susup kabul etmek en sık yapılan hata. BATNA'nı (elindeki en güçlü alternatif — pazarlık gücünü belirleyen temel şey) netleştirmeyi, karşı teklif verme zamanlamasını, maaş dışı pazarlık kalemlerini (sign-on bonus, eğitim bütçesi, uzaktan çalışma) — İngilizce örnek diyalogla öğren.</p>
       </div>
     </div>
   </div>
@@ -156,7 +174,7 @@
     <div class="price-card">
       <div>
         <p class="pc-eyebrow">Tek seferlik · Dijital indirme</p>
-        <h2>PM / Project Engineer — İş Arama Paketi</h2>
+        <h2>Project Manager / Project Engineer — İş Arama Paketi</h2>
         <p>5 modül · maaş pazarlığı · 45 soruluk PMP tarzı bankası · Etsy &amp; Shopier'de satışta</p>
       </div>
       <div>
@@ -178,7 +196,7 @@
 </section>
 
 <footer>
-  <p class="fn">Kübra Terzioğlu — Founder, PMP, PSM I</p>
-  <p style="margin:0 0 16px;">13+ yıl proje/risk yönetimi deneyimi · Türksat 6A</p>
-  PM / Project Engineer Crash Course — İş Arama Paketi · Demo içerik ve örnek verilerle hazırlanmıştır.
+  <p class="fn">Kubra Terzioglu — PMP®, CAPM®, PSM I</p>
+  <p style="margin:0 0 16px;">13+ Project Management and Risk Management experience</p>
+  Project Manager / Project Engineer Crash Course — İş Arama Paketi · Demo içerik ve örnek verilerle hazırlanmıştır.
 </footer>

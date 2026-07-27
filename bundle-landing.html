@@ -1,0 +1,78 @@
+<meta charset="UTF-8">
+<title>PM / Project Engineer Crash Course Serisi — 5 Paket Bir Arada</title>
+<style>
+  :root{
+    --bg:#FAFAF8; --surface:#FFFFFF; --border:#E0E0DA;
+    --ink:#16202B; --ink-soft:#4C5B6B; --ink-faint:#7C8CA0;
+    --accent:#16202B; --flag:#B4832A;
+    --font-display:'Bahnschrift','SF Compact Condensed','Segoe UI Semibold','Roboto Condensed','Arial Narrow',sans-serif;
+    --font-body: Charter,'Iowan Old Style',Georgia,'Noto Serif',serif;
+    --font-mono:'SF Mono','Cascadia Code',Consolas,'JetBrains Mono',monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0F1216; --surface:#171B21; --border:#2A2F37;
+      --ink:#EBEEF2; --ink-soft:#AEB8C4; --ink-faint:#76808C;
+      --accent:#EBEEF2; --flag:#E0B255; }
+  }
+  *{box-sizing:border-box;} body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;} img{max-width:100%;display:block;border-radius:10px;}
+  .section{max-width:900px;margin:0 auto;padding:0 28px;}
+  header{padding:56px 0 20px;text-align:center;}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--flag);margin:0 0 14px;}
+  h1{font-family:var(--font-display);font-weight:700;font-size:clamp(26px,4vw,38px);line-height:1.16;margin:0 0 14px;}
+  header p{color:var(--ink-soft);max-width:56ch;margin:0 auto;font-size:16px;}
+  .poster{padding:32px 0;}
+  .price{padding:20px 0 48px;text-align:center;}
+  .price-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;display:inline-flex;flex-direction:column;align-items:center;gap:14px;}
+  .price-old{font-family:var(--font-mono);font-size:15px;color:var(--ink-faint);text-decoration:line-through;}
+  .price-new{font-family:var(--font-display);font-weight:700;font-size:40px;color:var(--ink);}
+  .price-save{font-family:var(--font-mono);font-size:12.5px;color:var(--flag);letter-spacing:.03em;}
+  .btn{font-family:var(--font-display);font-weight:700;font-size:15px;padding:14px 30px;border-radius:8px;cursor:pointer;border:none;background:var(--ink);color:var(--bg);display:inline-flex;align-items:center;gap:8px;margin-top:6px;}
+  .list{padding:0 0 60px;}
+  .list h2{font-family:var(--font-display);font-weight:700;font-size:19px;margin:0 0 18px;text-align:center;}
+  .item{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border:1px solid var(--border);border-radius:10px;margin-bottom:10px;background:var(--surface);}
+  .item a{font-family:var(--font-display);font-weight:600;font-size:15px;text-decoration:none;}
+  .item a:hover{color:var(--flag);}
+  .item span{font-family:var(--font-mono);font-size:13px;color:var(--ink-faint);}
+  footer{border-top:1px solid var(--border);padding:24px 28px 50px;font-size:12px;color:var(--ink-faint);text-align:center;}
+</style>
+
+<header>
+  <div class="section">
+    <p class="eyebrow">PM / Project Engineer Crash Course Serisi</p>
+    <h1>5 paket, tek seferde. Ya da ihtiyacın olanı seç.</h1>
+    <p>Çekirdek Kurs, Araç Kiti, İş Arama Paketi, n8n/Excel/Power BI Kiti ve Prompt/Context/Loop Engineering — her biri ayrı ayrı satın alınabilir, ya da hepsini birden alıp indirim kazanabilirsin.</p>
+  </div>
+</header>
+
+<section class="poster">
+  <div class="section">
+    <img src="5-panel-comparison-poster.png" alt="5 paket karşılaştırma">
+  </div>
+</section>
+
+<section class="price">
+  <div class="section">
+    <div class="price-card">
+      <p class="price-old">Ayrı ayrı toplam: 4.200 ₺</p>
+      <p class="price-new">3.500 ₺</p>
+      <p class="price-save">5'i birden alınca 700 ₺ tasarruf</p>
+      <button class="btn">Paketi Satın Al — 3.500 ₺ →</button>
+    </div>
+  </div>
+</section>
+
+<section class="list">
+  <div class="section">
+    <h2>Ya da tek tek incele</h2>
+    <div class="item"><a href="landing-page-cekirdek.html">Çekirdek Kurs</a><span>19 modül · 900 ₺</span></div>
+    <div class="item"><a href="landing-page-arackiti.html">Araç Kiti</a><span>16 modül · 1.000 ₺</span></div>
+    <div class="item"><a href="landing-page-isarama.html">İş Arama Paketi</a><span>5 modül · 700 ₺</span></div>
+    <div class="item"><a href="landing-page-kit4.html">n8n + Excel + Power BI Kiti</a><span>6 modül · 800 ₺</span></div>
+    <div class="item"><a href="landing-page-kit5.html">Prompt / Context / Loop Engineering</a><span>8 modül · 800 ₺</span></div>
+  </div>
+</section>
+
+<footer>
+  Kubra Terzioglu — PMP®, CAPM®, PSM I · 13+ Project Management and Risk Management experience
+</footer>
